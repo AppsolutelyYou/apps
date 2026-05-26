@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launch Countdown Timer · Appsolutely You</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #2E7D73;
+    --panel: #FFF2E1;
+    --header: #F27C38;
+    --mustard: #F4C542;
+    --green: #A6D76A;
+    --pink: #FF69B4;
+    --dark: #1A1A1A;
+    --body-text: #3A3A2A;
+    --muted: #888;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 10% 15%, rgba(166,215,106,0.2) 0%, transparent 45%),
+      radial-gradient(circle at 90% 80%, rgba(255,105,180,0.15) 0%, transparent 45%),
+      radial-gradient(circle at 55% 45%, rgba(244,197,66,0.08) 0%, transparent 55%);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 16px 60px;
+  }
+
+  /* ── HEADER ── */
+  .app-header {
+    width: 100%;
+    max-width: 520px;
+    background: var(--header);
+    border-radius: 18px;
+    padding: 24px 28px 20px;
+    text-align: center;
+    margin-bottom: 28px;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.12);
+    border: 3px solid rgba(255,255,255,0.22);
+    position: relative;
+    overflow: hidden;
+  }
+  .app-header::before {
+    content: '';
+    position: absolute;
+    top: -24px; right: -24px;
+    width: 100px; height: 100px;
+    background: rgba(244,197,66,0.22);
+    border-radius: 50%;
+  }
+  .app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -18px; left: -18px;
+    width: 70px; height: 70px;
+    background: rgba(255,105,180,0.18);
+    border-radius: 50%;
+  }
+  .app-header h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    color: #fff;
+    text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 6px;
+  }
+  .app-header p {
+    color: rgba(255,255,255,0.88);
+    font-size: 0.92rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── SETUP CARD ── */
+  .setup-card {
+    background: var(--panel);
+    border: 3px solid var(--green);
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.12), 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+  }
+
+  .field { margin-bottom: 20px; }
+  .field:last-of-type { margin-bottom: 24px; }
+
+  label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--body-text);
+    margin-bottom: 6px;
+  }
+  .field-hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+    margin-top: -3px;
+    font-style: italic;
+  }
+
+  input[type="text"], input[type="datetime-local"] {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--green);
+    border-radius: 10px;
+    color: var(--body-text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,105,180,0.15); }
+
+  .btn-go {
+    width: 100%;
+    background: var(--pink);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.15rem;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.06em;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  }
+  .btn-go:hover {
+    background: var(--mustard);
+    color: var(--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.15);
+  }
+  .btn-go:active { transform: translateY(1px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
+
+  /* ── COUNTDOWN DISPLAY ── */
+  .countdown-wrap {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 560px;
+  }
+  .countdown-wrap.show { display: flex; }
+
+  /* Output header band */
+  .countdown-card {
+    background: var(--panel);
+    border: 3px solid var(--green);
+    border-radius: 16px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.12), 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 16px;
+  }
+
+  .cd-header {
+    background: var(--header);
+    border-radius: 11px 11px 0 0;
+    padding: 18px 24px 16px;
+    text-align: center;
+  }
+  .cd-header h2 {
+    font-family: 'Fredoka One', cursive;
+    color: #fff;
+    font-size: 1.5rem;
+    text-shadow: 1px 2px 0 rgba(0,0,0,0.15);
+    margin-bottom: 4px;
+  }
+  .cd-header .cd-date-label {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.88rem;
+  }
+
+  .cd-body { padding: 24px; }
+
+  /* Digits */
+  .digits {
+    display: flex;
+    gap: clamp(10px, 3vw, 22px);
+    justify-content: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .unit { display: flex; flex-direction: column; align-items: center; }
+  .digit-box {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2.4rem, 9vw, 4.5rem);
+    color: var(--green);
+    background: #fff;
+    border: 3px solid var(--green);
+    border-radius: 14px;
+    padding: 14px 20px;
+    min-width: clamp(72px, 16vw, 110px);
+    text-align: center;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+    line-height: 1;
+    transition: transform 0.1s;
+  }
+  .digit-box.tick { transform: scale(1.04); }
+  .unit-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* Separator badges */
+  .sep {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--mustard);
+    align-self: center;
+    margin-bottom: 20px;
+    padding-bottom: 4px;
+  }
+
+  /* Progress */
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .progress-track {
+    height: 8px;
+    background: rgba(0,0,0,0.07);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(166,215,106,0.4);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--mustard));
+    border-radius: 20px;
+    transition: width 1s linear;
+    width: 0%;
+  }
+
+  /* Status badges */
+  .status-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .badge-orange { background: rgba(242,124,56,0.12); color: var(--header); border: 1.5px solid rgba(242,124,56,0.3); }
+  .badge-green  { background: rgba(166,215,106,0.2); color: #3A7A10; border: 1.5px solid rgba(166,215,106,0.4); }
+  .badge-pink   { background: rgba(255,105,180,0.12); color: var(--pink); border: 1.5px solid rgba(255,105,180,0.3); }
+
+  /* Action buttons inside card */
+  .cd-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 16px 24px 20px;
+    border-top: 2px dashed rgba(0,0,0,0.07);
+  }
+  .cd-actions button {
+    flex: 1;
+    min-width: 140px;
+    background: transparent;
+    color: var(--dark);
+    border: 2px solid var(--dark);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .cd-actions button:hover {
+    background: var(--mustard);
+    color: var(--dark);
+    border-color: var(--mustard);
+  }
+  .cd-actions .btn-share {
+    background: var(--pink);
+    color: #fff;
+    border-color: var(--pink);
+  }
+  .cd-actions .btn-share:hover {
+    background: var(--mustard);
+    color: var(--dark);
+    border-color: var(--mustard);
+  }
+
+  /* ── LAUNCHED STATE ── */
+  .launched-wrap {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+  }
+  .launched-wrap.show { display: flex; }
+
+  .launched-card {
+    background: var(--panel);
+    border: 3px solid var(--green);
+    border-radius: 16px;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.12);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .launched-header {
+    background: var(--header);
+    border-radius: 11px 11px 0 0;
+    padding: 28px 24px;
+  }
+  .launched-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    color: #fff;
+    text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+    margin-bottom: 6px;
+  }
+  .launched-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.88);
+  }
+  .launched-body {
+    padding: 28px;
+  }
+  .launched-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--header);
+    margin-bottom: 12px;
+  }
+  .launched-msg {
+    font-size: 0.95rem;
+    color: var(--body-text);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .btn-new {
+    display: inline-block;
+    background: var(--pink);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+    transition: background 0.18s, transform 0.15s;
+  }
+  .btn-new:hover {
+    background: var(--mustard);
+    color: var(--dark);
+    transform: translateY(-2px);
+  }
+
+  /* ── CONFETTI ── */
+  .confetti-piece {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    top: -10px;
+    animation: confettiFall linear forwards;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  @keyframes confettiFall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 2px dashed rgba(255,255,255,0.2);
+    width: 100%;
+    max-width: 520px;
+  }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .app-header, .setup-card { animation: fadeUp 0.5s ease both; }
+  .setup-card { animation-delay: 0.1s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="app-header">
+  <h1>Launch Countdown Timer ⏱️</h1>
+  <p>Set your launch date — then watch it get closer.</p>
+</div>
+
+<!-- SETUP CARD -->
+<div class="setup-card" id="setupCard">
+  <div class="field">
+    <label>Product or Launch Name</label>
+    <p class="field-hint">What are you launching? Keep it short and exciting.</p>
+    <input type="text" id="launchName" placeholder="e.g. The Passive Income Playbook, Summer Collection, Course Launch" maxlength="60" />
+  </div>
+  <div class="field">
+    <label>Launch Date & Time</label>
+    <p class="field-hint">Pick the exact moment it goes live. Down to the minute if you like.</p>
+    <input type="datetime-local" id="launchDt" />
+  </div>
+  <button class="btn-go" onclick="startCountdown()">Start the Clock! 🚀</button>
+</div>
+
+<!-- COUNTDOWN DISPLAY -->
+<div class="countdown-wrap" id="countdownWrap">
+  <div class="countdown-card">
+    <div class="cd-header">
+      <h2 id="cdName">Your Launch</h2>
+      <div class="cd-date-label" id="cdDate"></div>
+    </div>
+    <div class="cd-body">
+      <div class="digits">
+        <div class="unit"><div class="digit-box" id="dDays">00</div><div class="unit-label">Days</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="digit-box" id="dHrs">00</div><div class="unit-label">Hours</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="digit-box" id="dMin">00</div><div class="unit-label">Minutes</div></div>
+        <div class="sep">:</div>
+        <div class="unit"><div class="digit-box" id="dSec">00</div><div class="unit-label">Seconds</div></div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-label-row">
+          <span>Progress to launch</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span class="status-badge badge-orange" id="statusTotal">⏳ Calculating...</span>
+        <span class="status-badge badge-green" id="statusMode">🗓️ Days mode</span>
+      </div>
+    </div>
+    <div class="cd-actions">
+      <button class="btn-share" onclick="copyLink()">📋 Copy Countdown</button>
+      <button onclick="resetTimer()">Change Date</button>
+    </div>
+  </div>
+</div>
+
+<!-- LAUNCHED STATE -->
+<div class="launched-wrap" id="launchedWrap">
+  <div class="launched-card">
+    <div class="launched-header">
+      <h2>🎉 You're Live!</h2>
+      <div class="launched-sub">The wait is over.</div>
+    </div>
+    <div class="launched-body">
+      <div class="launched-name" id="launchedName"></div>
+      <p class="launched-msg">Your launch has arrived. Celebrate the work that got you here — then go tell everyone it's live.</p>
+      <button class="btn-new" onclick="resetTimer()">Set a New Launch</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="font-size:0.95rem;font-weight:700;color:rgba(255,255,255,0.88);margin-bottom:4px;font-family:'Fredoka One',cursive;">Appsolutely You · A Cha-Cha-Tchotchkes Collection</div>
+  <div style="font-size:0.75rem;color:rgba(255,255,255,0.45);font-family:'DM Sans',sans-serif;">Original app credit: GetPaidToBeYouOnline</div>
+</footer>
+
+<script>
+  let countdownInterval = null;
+  let launchTimestamp   = null;
+  let startTimestamp    = null;
+  let launchNameStr     = '';
+
+  function startCountdown() {
+    const name    = document.getElementById('launchName').value.trim() || 'Your Launch';
+    const dtInput = document.getElementById('launchDt').value;
+    if (!dtInput) { alert('Please pick a launch date first!'); return; }
+
+    launchTimestamp = new Date(dtInput).getTime();
+    startTimestamp  = Date.now();
+    launchNameStr   = name;
+
+    if (launchTimestamp <= Date.now()) {
+      showLaunched(name);
+      return;
+    }
+
+    document.getElementById('cdName').textContent = name;
+    document.getElementById('cdDate').textContent = new Date(launchTimestamp).toLocaleString(undefined, {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+
+    document.getElementById('setupCard').style.display = 'none';
+    document.getElementById('countdownWrap').classList.add('show');
+
+    tick();
+    countdownInterval = setInterval(tick, 1000);
+  }
+
+  function tick() {
+    const now      = Date.now();
+    const distance = launchTimestamp - now;
+
+    if (distance <= 0) {
+      clearInterval(countdownInterval);
+      document.getElementById('countdownWrap').classList.remove('show');
+      showLaunched(launchNameStr);
+      launchConfetti();
+      return;
+    }
+
+    const days    = Math.floor(distance / 86400000);
+    const hours   = Math.floor((distance % 86400000) / 3600000);
+    const minutes = Math.floor((distance % 3600000)  / 60000);
+    const seconds = Math.floor((distance % 60000)    / 1000);
+
+    setDigit('dDays', days);
+    setDigit('dHrs',  hours);
+    setDigit('dMin',  minutes);
+    setDigit('dSec',  seconds);
+
+    // Progress
+    const totalDuration = launchTimestamp - startTimestamp;
+    const elapsed       = now - startTimestamp;
+    const pct           = Math.min(100, Math.round((elapsed / totalDuration) * 100));
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent  = pct + '%';
+
+    // Status badges
+    const totalDays = Math.ceil(distance / 86400000);
+    document.getElementById('statusTotal').textContent = '⏳ ' + totalDays + ' day' + (totalDays !== 1 ? 's' : '') + ' to go';
+    document.getElementById('statusMode').textContent  = days > 0 ? '🗓️ ' + days + 'd ' + hours + 'h left' : '⚡ Under 24 hours!';
+    if (days === 0) {
+      document.getElementById('statusMode').className = 'status-badge badge-pink';
+    }
+  }
+
+  function setDigit(id, val) {
+    const el = document.getElementById(id);
+    const str = String(val).padStart(2, '0');
+    if (el.textContent !== str) {
+      el.textContent = str;
+      el.classList.add('tick');
+      setTimeout(() => el.classList.remove('tick'), 150);
+    }
+  }
+
+  function showLaunched(name) {
+    document.getElementById('launchedName').textContent = name;
+    document.getElementById('launchedWrap').classList.add('show');
+  }
+
+  function resetTimer() {
+    clearInterval(countdownInterval);
+    document.getElementById('countdownWrap').classList.remove('show');
+    document.getElementById('launchedWrap').classList.remove('show');
+    document.getElementById('setupCard').style.display = '';
+    document.getElementById('progressFill').style.width = '0%';
+    document.getElementById('progressPct').textContent = '0%';
+    document.getElementById('statusMode').className = 'status-badge badge-green';
+  }
+
+  function copyLink() {
+    const name = launchNameStr;
+    const date = new Date(launchTimestamp).toLocaleString();
+    const text = '🚀 Countdown: ' + name + '\n📅 Launches: ' + date + '\n⏱️ Built with Appsolutely You';
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = '📋 Copy Countdown', 2000);
+    });
+  }
+
+  function launchConfetti() {
+    const colors = ['#F27C38','#FF69B4','#F4C542','#A6D76A','#2E7D73','#fff'];
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.background = colors[Math.floor(Math.random() * colors.length)];
+        el.style.width  = (Math.random() * 8 + 6) + 'px';
+        el.style.height = (Math.random() * 8 + 6) + 'px';
+        el.style.animationDuration = (Math.random() * 2.5 + 1.5) + 's';
+        el.style.animationDelay = (Math.random() * 0.5) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+      }, i * 30);
+    }
+  }
+</script>
+
+</body>
+</html>

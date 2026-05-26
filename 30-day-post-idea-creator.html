@@ -19,6 +19,7 @@
     --pink: #FF69B4;
     --dark-text: #1A1A1A;
     --body-text: #3A3A2A;
+    --muted: #888;
   }
 
   body {
@@ -56,7 +57,6 @@
     background: rgba(244,197,66,0.25);
     border-radius: 50%;
   }
-
   header::after {
     content: '';
     position: absolute;
@@ -107,7 +107,7 @@
 
   .field-hint {
     font-size: 0.8rem;
-    color: #888;
+    color: var(--muted);
     margin-bottom: 10px;
     margin-top: -4px;
     font-style: italic;
@@ -125,15 +125,10 @@
     margin-bottom: 18px;
     transition: border-color 0.2s;
   }
-
-  input:focus, select:focus {
-    outline: none;
-    border-color: var(--pink);
-  }
-
+  input:focus, select:focus { outline: none; border-color: var(--pink); }
   input::placeholder { color: #bbb; }
 
-  button {
+  .btn-primary {
     background: var(--pink);
     color: #fff;
     border: none;
@@ -147,46 +142,25 @@
     transition: background 0.18s, transform 0.15s, box-shadow 0.15s;
     box-shadow: 0 4px 0 rgba(0,0,0,0.15);
   }
-
-  button:hover {
+  .btn-primary:hover {
     background: var(--mustard);
     color: var(--dark-text);
     transform: translateY(-2px);
     box-shadow: 0 6px 0 rgba(0,0,0,0.15);
   }
-
-  button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 0 rgba(0,0,0,0.15);
-  }
-
-  button.ghost {
-    background: transparent;
-    color: var(--dark-text);
-    border: 2px solid var(--dark-text);
-    margin-top: 10px;
-    font-size: 0.95rem;
-    box-shadow: 0 3px 0 rgba(0,0,0,0.1);
-  }
-
-  button.ghost:hover {
-    background: var(--mustard);
-    color: var(--dark-text);
-    border-color: var(--mustard);
-  }
+  .btn-primary:active { transform: translateY(1px); box-shadow: 0 2px 0 rgba(0,0,0,0.15); }
 
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   @media (max-width: 540px) { .row { grid-template-columns: 1fr; gap: 0; } }
 
-  /* Output card header */
+  /* ── OUTPUT CARD ── */
+  #output .card { padding: 0; overflow: hidden; }
+
   .output-header {
     background: var(--header);
-    border-radius: 12px 12px 0 0;
-    margin: -24px -24px 0 -24px;
+    border-radius: 11px 11px 0 0;
     padding: 18px 24px 16px;
-    margin-bottom: 4px;
   }
-
   .output-header h2 {
     font-family: 'Fredoka One', cursive;
     color: #fff;
@@ -194,31 +168,30 @@
     letter-spacing: 0.5px;
     text-shadow: 1px 2px 0 rgba(0,0,0,0.15);
   }
-
   .output-header p {
     color: rgba(255,255,255,0.88);
     font-size: 0.9rem;
     margin-top: 4px;
   }
 
+  .output-body { padding: 8px 24px 20px; }
+
+  /* Day rows */
   .day {
     display: grid;
     grid-template-columns: 56px 1fr;
     gap: 14px;
-    padding: 14px 16px;
-    border-bottom: 2px dashed rgba(0,0,0,0.08);
+    padding: 12px 0;
+    border-bottom: 2px dashed rgba(0,0,0,0.07);
     align-items: start;
-    transition: background 0.15s;
   }
-
-  .day:hover { background: rgba(166,215,106,0.12); border-radius: 8px; }
   .day:last-child { border-bottom: none; }
+  .day:nth-child(even) { background: #fffaf3; border-radius: 6px; padding: 12px 8px; margin: 0 -8px; }
 
   .day-num {
     font-family: 'Fredoka One', cursive;
     color: #fff;
-    font-size: 1.1rem;
-    font-weight: 400;
+    font-size: 1.05rem;
     text-align: center;
     background: var(--green);
     border-radius: 10px;
@@ -227,24 +200,63 @@
     line-height: 1.2;
   }
 
-  .day-type {
+  .day-badge {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: var(--dark-text);
-    background: var(--mustard);
-    padding: 3px 9px;
+    font-weight: 700;
+    padding: 4px 10px;
     border-radius: 20px;
     margin-bottom: 6px;
-    font-weight: 700;
-    border: 1px solid rgba(0,0,0,0.1);
   }
+
+  /* badge color rotation */
+  .badge-0 { background: #F27C38; color: #fff; }
+  .badge-1 { background: #F4C542; color: #1A1A1A; }
+  .badge-2 { background: #FF69B4; color: #fff; }
+  .badge-3 { background: #A6D76A; color: #1A1A1A; }
+  .badge-4 { background: #2E7D73; color: #fff; }
 
   .day-idea { font-size: 0.95rem; color: var(--body-text); }
 
-  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-  .actions button { flex: 1; min-width: 140px; width: auto; margin-top: 0; }
+  /* Actions inside output card */
+  .output-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 16px 24px 20px;
+    border-top: 2px dashed rgba(0,0,0,0.07);
+  }
+  .output-actions button {
+    flex: 1;
+    min-width: 130px;
+    background: transparent;
+    color: var(--dark-text);
+    border: 2px solid var(--dark-text);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .output-actions button:hover {
+    background: var(--mustard);
+    color: var(--dark-text);
+    border-color: var(--mustard);
+  }
+  .output-actions button.btn-pink {
+    background: var(--pink);
+    color: #fff;
+    border-color: var(--pink);
+  }
+  .output-actions button.btn-pink:hover {
+    background: var(--mustard);
+    color: var(--dark-text);
+    border-color: var(--mustard);
+  }
 
   .hidden { display: none; }
 
@@ -262,17 +274,17 @@
 <div class="wrap">
   <header>
     <h1>30 Day Post Idea Creator</h1>
-    <p class="sub">A full month of post prompts — personalised to your niche, audience, and platform. No more blank-page Mondays.</p>
+    <p class="sub">A full month of post prompts — personalized to your niche, audience, and platform. No more blank-page Mondays.</p>
   </header>
 
   <div class="card" id="inputCard">
     <label for="niche">Your niche</label>
-    <p class="field-hint">What topic or space do you create content around?</p>
-    <input id="niche" type="text" placeholder="e.g. budget travel, sourdough baking, freelance copywriting" />
+    <p class="field-hint">What topic or space do you create content around? Be specific — "sourdough baking" beats "food."</p>
+    <input id="niche" type="text" placeholder="e.g. sourdough baking, freelance copywriting, watercolor painting, home organization" />
 
     <label for="audience">Your audience</label>
-    <p class="field-hint">Who are you talking to?</p>
-    <input id="audience" type="text" placeholder="e.g. new parents, side-hustlers, creative directors" />
+    <p class="field-hint">2 to 4 words — e.g. "busy parents" or "first-year freelancers" or "new retirees"</p>
+    <input id="audience" type="text" placeholder="e.g. busy parents, new teachers, home cooks, first-year freelancers" />
 
     <div class="row">
       <div>
@@ -298,84 +310,103 @@
       </div>
     </div>
 
-    <button onclick="generate()">Generate 30 Days ✨</button>
+    <button class="btn-primary" onclick="generate()">Generate 30 Days ✨</button>
   </div>
 
   <div id="output" class="hidden"></div>
 
   <footer>
-  <div style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px;">Appsolutely You · A Cha-Cha-Tchotchkes Collection</div>
-  <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);">Original app credit: GetPaidToBeYouOnline</div>
-</footer>
+    <div style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px;">Appsolutely You · A Cha-Cha-Tchotchkes Collection</div>
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);">Original app credit: GetPaidToBeYouOnline</div>
+  </footer>
 </div>
 
 <script>
   const TEMPLATES = [
-    { type: "Hook",     idea: "Open with: 'Most {{audience}} get {{niche}} wrong. Here's what actually works.'" },
-    { type: "Tip",      idea: "Share one tiny {{niche}} habit that changed your week." },
-    { type: "Story",    idea: "Tell the moment you first realised you needed to take {{niche}} seriously." },
-    { type: "List",     idea: "5 tools every {{audience}} should know about for {{niche}}." },
-    { type: "Myth",     idea: "Bust a common myth {{audience}} still believe about {{niche}}." },
-    { type: "Question", idea: "Ask: What's the #1 thing holding you back in {{niche}}?" },
-    { type: "Tutorial", idea: "Teach a 60-second walkthrough of your favourite {{niche}} shortcut." },
-    { type: "Behind",   idea: "Show a real behind-the-scenes moment from your {{niche}} workflow." },
-    { type: "Hot Take", idea: "Share a contrarian opinion most {{audience}} would disagree with." },
-    { type: "Win",      idea: "Celebrate a small {{niche}} win — yours or a follower's." },
-    { type: "Compare",  idea: "This vs. that: two approaches to {{niche}} and when to use each." },
-    { type: "Mistake",  idea: "Confess a mistake you made in {{niche}} and the lesson it taught." },
-    { type: "Quote",    idea: "Pair a quote you love with how it applies to {{niche}}." },
-    { type: "Q&A",      idea: "Answer the question {{audience}} keep asking you about {{niche}}." },
+    { type: "Hook",       idea: "Open with: 'Most {{audience}} get {{niche}} wrong. Here's what actually works.'" },
+    { type: "Tip",        idea: "Share one tiny {{niche}} habit that changed your week." },
+    { type: "Story",      idea: "Tell the moment you first realized you needed to take {{niche}} seriously." },
+    { type: "List",       idea: "5 things every {{audience}} should know about {{niche}}." },
+    { type: "Myth",       idea: "Bust a common myth {{audience}} still believe about {{niche}}." },
+    { type: "Question",   idea: "Ask: What's the #1 thing holding you back in {{niche}}?" },
+    { type: "Tutorial",   idea: "Teach a 60-second walkthrough of your favorite {{niche}} shortcut." },
+    { type: "Behind",     idea: "Show a real behind-the-scenes moment from your {{niche}} workflow." },
+    { type: "Hot Take",   idea: "Share a contrarian opinion most {{audience}} would disagree with." },
+    { type: "Win",        idea: "Celebrate a small {{niche}} win — yours or a follower's." },
+    { type: "Compare",    idea: "This vs. that: two approaches to {{niche}} and when to use each." },
+    { type: "Mistake",    idea: "Confess a mistake you made in {{niche}} and the lesson it taught." },
+    { type: "Quote",      idea: "Pair a quote you love with how it applies to {{niche}}." },
+    { type: "Q&A",        idea: "Answer the question {{audience}} keep asking you about {{niche}}." },
     { type: "Mini Guide", idea: "Break down a step-by-step mini guide on one slice of {{niche}}." },
-    { type: "Resource", idea: "Recommend a free resource that levels up any {{audience}} in {{niche}}." },
-    { type: "Trend",    idea: "React to a current trend in {{niche}} — agree or push back." },
-    { type: "Reframe",  idea: "Reframe a {{niche}} problem {{audience}} face into an opportunity." },
-    { type: "Day in Life", idea: "Walk through one full day of yours through a {{niche}} lens." },
-    { type: "Checklist", idea: "Post a save-worthy checklist for {{audience}} starting {{niche}}." },
-    { type: "Poll",     idea: "Run a poll: which {{niche}} challenge hits hardest?" },
-    { type: "Lesson",   idea: "Share the biggest lesson your last year in {{niche}} taught you." },
-    { type: "Testimonial", idea: "Spotlight a result, win, or kind word from {{audience}} you've helped." },
-    { type: "FAQ",      idea: "Answer 3 common FAQs about {{niche}} in one carousel/post." },
-    { type: "Vision",   idea: "Paint the picture of where {{audience}} could be in 6 months." },
-    { type: "Reaction", idea: "Stitch or react to a recent post in {{niche}} you have thoughts on." },
-    { type: "Process",  idea: "Reveal your full process for one specific {{niche}} outcome." },
-    { type: "Then/Now", idea: "Compare where you started in {{niche}} vs. where you are now." },
-    { type: "Pep Talk", idea: "Send a pep talk to {{audience}} feeling stuck in {{niche}} this week." },
-    { type: "CTA",      idea: "Invite {{audience}} to DM you a word about their biggest {{niche}} goal." }
+    { type: "Resource",   idea: "Recommend a free resource that levels up any {{audience}} in {{niche}}." },
+    { type: "Trend",      idea: "React to a current trend in {{niche}} — agree or push back." },
+    { type: "Reframe",    idea: "Reframe a {{niche}} problem {{audience}} face into an opportunity." },
+    { type: "Day in Life",idea: "Walk through one full day of yours through a {{niche}} lens." },
+    { type: "Checklist",  idea: "Post a save-worthy checklist for {{audience}} starting {{niche}}." },
+    { type: "Poll",       idea: "Run a poll: which {{niche}} challenge hits hardest?" },
+    { type: "Lesson",     idea: "Share the biggest lesson your last year in {{niche}} taught you." },
+    { type: "Testimonial",idea: "Spotlight a result, win, or kind word from {{audience}} you've helped." },
+    { type: "FAQ",        idea: "Answer 3 common FAQs about {{niche}} in one post." },
+    { type: "Vision",     idea: "Paint the picture of where {{audience}} could be in 6 months." },
+    { type: "Reaction",   idea: "React to a recent post in {{niche}} you have thoughts on." },
+    { type: "Process",    idea: "Reveal your full process for one specific {{niche}} outcome." },
+    { type: "Then/Now",   idea: "Compare where you started in {{niche}} vs. where you are now." },
+    { type: "Pep Talk",   idea: "Send a pep talk to {{audience}} feeling stuck in {{niche}} this week." },
+    { type: "CTA",        idea: "Invite {{audience}} to DM you their biggest {{niche}} goal right now." }
   ];
 
+  const BADGE_COLORS = ['badge-0','badge-1','badge-2','badge-3','badge-4'];
+
+  let _planText = '';
+
   function generate() {
-    const niche = document.getElementById('niche').value.trim();
+    const niche    = document.getElementById('niche').value.trim();
     const audience = document.getElementById('audience').value.trim();
     const platform = document.getElementById('platform').value;
-    const tone = document.getElementById('tone').value;
+    const tone     = document.getElementById('tone').value;
 
     if (!niche || !audience) {
       alert('Please fill in your niche and audience first.');
       return;
     }
 
-    let html = `<div class="card">
-      <div class="output-header">
-        <h2>Your 30-Day Plan 🗓️</h2>
-        <p>Platform: ${platform} · Tone: ${tone}</p>
-      </div>`;
+    let daysHtml = '';
+    let plainText = '30-Day Post Plan\n';
+    plainText += 'Platform: ' + platform + ' · Tone: ' + tone + '\n';
+    plainText += '─'.repeat(40) + '\n\n';
 
     TEMPLATES.forEach((t, i) => {
-      const idea = t.idea.replace(/{{niche}}/g, niche).replace(/{{audience}}/g, audience);
-      html += `<div class="day">
+      const idea = t.idea
+        .replace(/{{niche}}/g, niche)
+        .replace(/{{audience}}/g, audience);
+      const badgeClass = BADGE_COLORS[i % BADGE_COLORS.length];
+      const rowBg = i % 2 === 1 ? 'background:#fffaf3;border-radius:6px;padding:12px 8px;margin:0 -8px;' : '';
+
+      daysHtml += `<div class="day" style="${rowBg}">
         <div class="day-num">Day<br>${i + 1}</div>
         <div>
-          <span class="day-type">${t.type}</span>
+          <span class="day-badge ${badgeClass}">${t.type}</span>
           <div class="day-idea">${idea}</div>
         </div>
       </div>`;
+
+      plainText += `Day ${i + 1} — ${t.type}\n${idea}\n\n`;
     });
 
-    html += `<div class="actions">
-      <button class="ghost" onclick="copyPlan()">Copy All</button>
-      <button class="ghost" onclick="downloadPlan()">Download .txt</button>
-      <button class="ghost" onclick="reset()">Start Over</button>
-    </div></div>`;
+    _planText = plainText;
+
+    const html = `<div class="card">
+      <div class="output-header">
+        <h2>Your 30-Day Plan 🗓️</h2>
+        <p>Platform: ${platform} · Tone: ${tone}</p>
+      </div>
+      <div class="output-body">${daysHtml}</div>
+      <div class="output-actions">
+        <button class="btn-pink" onclick="copyPlan()">Copy All</button>
+        <button onclick="downloadPlan()">Download .txt</button>
+        <button onclick="reset()">Start Over</button>
+      </div>
+    </div>`;
 
     const out = document.getElementById('output');
     out.innerHTML = html;
@@ -384,21 +415,12 @@
     out.scrollIntoView({ behavior: 'smooth' });
   }
 
-  function planAsText() {
-    return Array.from(document.querySelectorAll('.day')).map(d => {
-      const n = d.querySelector('.day-num').innerText.replace('Day\n','').replace('Day ','');
-      const t = d.querySelector('.day-type').innerText;
-      const i = d.querySelector('.day-idea').innerText;
-      return `Day ${n} — ${t}\n${i}\n`;
-    }).join('\n');
-  }
-
   function copyPlan() {
-    navigator.clipboard.writeText(planAsText()).then(() => alert('Plan copied to clipboard.'));
+    navigator.clipboard.writeText(_planText).then(() => alert('Plan copied to clipboard!'));
   }
 
   function downloadPlan() {
-    const blob = new Blob([planAsText()], { type: 'text/plain' });
+    const blob = new Blob([_planText], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
