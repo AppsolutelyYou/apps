@@ -1,2 +1,2 @@
 # apps
-Appsolutely You — Mini App Collection
+Perfectly Apped — Mini App Collection
