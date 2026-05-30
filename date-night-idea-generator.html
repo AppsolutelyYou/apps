@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Night Idea Generator · Perfectly Apped</title>
+<!-- font replaced by Perfectly Apped -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- font replaced by Perfectly Apped -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0 }
+.wrap { max-width: 580px; margin: 0 auto; text-align: center }
+.sub { margin: 8px 0 22px }
+label { display: block; margin: 10px 0 5px; text-align: left }
+select { width: 100%; padding: 9px 11px }
+.panel { padding: 20px; margin-bottom: 16px }
+.btn { cursor: pointer; padding: 12px 26px; margin-top: 14px }
+.idea { padding: 20px; margin-top: 16px; display: none }
+.idea .meta { margin-top: 6px }
+footer { margin-top: 38px }
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="ay-brand">
+/* ── PERFECTLY APPED BRAND ── */
+:root {
+  --bg: #2E7D73;
+  --panel: #FFF2E1;
+  --header: #F27C38;
+  --mustard: #F4C542;
+  --green: #A6D76A;
+  --pink: #FF69B4;
+  --dark: #1A1A1A;
+  --muted: #7A7A6A;
+  --yes: #44cc66;
+  --no: #e07070;
+}
+body { background: var(--bg); color: #2A2A1A; font-family: 'DM Sans', sans-serif; line-height: 1.6; padding: 24px 16px 40px; margin: 0; }
+.container, .wrap { padding-left: 0; padding-right: 0; }
+h1, h2, h3, h4 { font-family: 'Fredoka One', cursive; font-weight: 400; }
+h1 { color: var(--dark); font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.2; }
+h2, h3 { color: var(--dark); }
+.app-header, header.branded {
+  background: var(--header);
+  border-radius: 18px;
+  padding: 28px 24px 24px;
+  margin: 0 auto 24px;
+  max-width: 820px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+  border: 3px solid rgba(255,255,255,0.25);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.app-header h1, header.branded h1 {
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.app-header p, header.branded p, .app-header .subtitle, header.branded .subtitle, .app-header .sub, header.branded .sub {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.97rem;
+  position: relative; z-index: 1;
+  max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  opacity: 1;
+}
+.app-header::before, header.branded::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(244,197,66,0.25);
+  border-radius: 50%;
+}
+.app-header::after, header.branded::after {
+  content: '';
+  position: absolute; bottom: -20px; left: -20px;
+  width: 80px; height: 80px;
+  background: rgba(255,105,180,0.2);
+  border-radius: 50%;
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card {
+  background: var(--panel);
+  border: 3px solid var(--green);
+  border-radius: 14px;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card { color: #2A2A1A; }
+.card-title, .section-title, .card h2, .card h3, .section h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: #2A2A1A;
+  font-size: 1.05rem;
+}
+.stat-n, .stat-val, .stat-value, .stat-num { color: var(--mustard); font-family: 'Fredoka One', cursive; font-weight: 400; }
+label, .field-label, .label {
+  color: #2A2A1A;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  opacity: 1;
+}
+input, select, textarea {
+  background: #ffffff;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.93rem;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,105,180,0.15);
+}
+input::placeholder, textarea::placeholder { color: #bbb; }
+select option { background: #fff; color: var(--dark); }
+button, .btn, .btn-gold, .btn-add, .btn-submit, .btn-generate, .add-btn, .dl-btn, .generate-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  padding: 12px 24px;
+}
+button:hover, .btn:hover, .btn-gold:hover, .btn-add:hover, .btn-submit:hover, .add-btn:hover, .dl-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+  transform: translateY(-2px);
+}
+.btn-outline, button.outline, button.secondary, .copy-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+}
+.btn-outline:hover, button.outline:hover, .copy-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+}
+.btn-add, .add-btn { padding: 10px 18px; font-size: 0.95rem; }
+.btn-ghost, .btn-complete, .btn-icon, .del-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: color 0.15s, background 0.15s;
+}
+.btn-ghost:hover, .del-btn:hover { color: var(--no); background: rgba(224,112,112,0.1); transform: none; }
+.btn-complete:hover { color: var(--yes); background: rgba(68,204,102,0.1); transform: none; }
+.btn-checkin {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+}
+.btn-checkin:hover { background: var(--mustard); color: var(--dark); transform: none; }
+.opt, .tab-btn, .format-btn {
+  background: transparent;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s;
+}
+.opt.sel, .opt.active, .tab-btn.active, .format-btn.active, .format-btn.sel {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+}
+.cc { border-radius: 14px; overflow: hidden; border: 3px solid var(--green); box-shadow: 0 5px 0 rgba(0,0,0,0.1); }
+.cc-top { background: var(--panel); color: var(--dark); }
+.cc-title { font-family: 'Fredoka One', cursive; font-weight: 400; color: var(--dark); }
+.cc-desc, .cc-meta { color: var(--muted); }
+.cc-footer { background: var(--panel); border-top: 1px solid rgba(166,215,106,0.4); }
+.cc-prog-bar { background: rgba(0,0,0,0.08); }
+.ci-form { background: #fff8ef; border-top: 2px solid var(--green); }
+.last-commit-note { background: var(--bg); color: rgba(255,255,255,0.88); border-left: 3px solid var(--mustard); border-radius: 0 8px 8px 0; }
+.kchip { background: #fff; color: var(--dark); border: 2px solid var(--green); border-radius: 8px; font-weight: 600; cursor: pointer; }
+.kchip.sel-yes     { border-color: var(--yes);    color: var(--yes);    background: rgba(68,204,102,0.08); }
+.kchip.sel-partial { border-color: var(--mustard);color: var(--mustard);background: rgba(244,197,66,0.08); }
+.kchip.sel-no      { border-color: var(--no);     color: var(--no);     background: rgba(224,112,112,0.08); }
+.pchip { background: #fff; color: var(--muted); border: 2px solid var(--green); border-radius: 7px; font-weight: 600; cursor: pointer; }
+.pchip.sel { border-color: var(--pink); color: var(--pink); background: rgba(255,105,180,0.08); }
+.hist-item { border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.hist-title { color: var(--dark); font-weight: 500; }
+.hist-meta { color: var(--muted); }
+.empty { color: var(--muted); }
+.date-label { color: rgba(255,255,255,0.5); }
+.btn-done-today { color: var(--yes); font-weight: 700; font-size: 0.78rem; }
+.err { color: var(--no); }
+.badge, .kept-badge { border-radius: 10px; border: 1px solid; }
+.entry-row, .prog-row { background: var(--panel); border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.prog-bar-track { background: rgba(0,0,0,0.08); }
+.prog-bar-fill { background: var(--mustard); }
+.plan-header { text-align: center; }
+.plan-goal { font-family: 'Fredoka One', cursive; font-weight: 400; font-size: 1.4rem; color: var(--mustard); }
+.plan-sub { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+.month-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2A2A1A; }
+.month-milestone { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1.05rem; color: #2A2A1A; }
+.action-item { color: #2A2A1A; font-size: 0.88rem; font-weight: 400; }
+.action-dot { color: #2A2A1A; }
+.action-num { color: #2A2A1A; font-weight: 400; }
+footer {
+  position: static !important;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  padding: 24px 16px 40px;
+  margin-top: 32px;
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: transparent !important;
+  color: #1A1A1A !important;
+  border: 2px solid #A6D76A !important;
+  border-radius: 10px !important;
+  font-family: 'Fredoka One', cursive !important;
+  font-size: 1rem !important;
+  padding: 11px 22px !important;
+  cursor: pointer !important;
+  transition: background 0.18s, color 0.18s, transform 0.15s !important;
+  box-shadow: none !important;
+}
+.btn-secondary:hover {
+  background: #A6D76A !important;
+  color: #1A1A1A !important;
+  transform: translateY(-2px) !important;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="app-header"><h1>Date Night Idea Generator</h1>
+  <p class="sub">Stuck on what to do? Set the vibe and let it pick a date night for you.</p></header>
+
+  <div class="panel">
+    <label for="setting">Setting</label>
+    <select id="setting"><option value="any">Surprise me</option><option value="in">At home</option><option value="out">Out and about</option></select>
+    <label for="budget">Budget</label>
+    <select id="budget"><option value="any">Any budget</option><option value="free">Free</option><option value="low">Low cost</option><option value="treat">A treat</option></select>
+    <label for="energy">Energy</label>
+    <select id="energy"><option value="any">Any energy</option><option value="cozy">Low-key &amp; cozy</option><option value="active">Active &amp; fun</option></select>
+    <button class="btn" onclick="gen()">Generate Date Idea</button>
+  </div>
+
+  <div class="idea" id="idea"></div>
+  <footer><div style="font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:3px;">Perfectly Apped · A Cha-Cha-Tchotchkes Collection</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Original app credit: GetPaidToBeYouOnline</div></footer>
+</div>
+
+<script>
+  const g=id=>document.getElementById(id);
+  const IDEAS=[
+    {t:"Cook a new recipe together from a country you have never visited",s:"in",b:"low",e:"cozy"},
+    {t:"Build a blanket fort and watch a film from your teenage years",s:"in",b:"free",e:"cozy"},
+    {t:"At-home spa night — face masks, music, no phones",s:"in",b:"low",e:"cozy"},
+    {t:"Cook-off challenge: same ingredients, two dishes, taste test",s:"in",b:"low",e:"active"},
+    {t:"Living room dance party with your first-dance songs",s:"in",b:"free",e:"active"},
+    {t:"Do a puzzle or board game with a small prize on the line",s:"in",b:"free",e:"cozy"},
+    {t:"Sunset or sunrise picnic somewhere with a view",s:"out",b:"low",e:"cozy"},
+    {t:"Wander a part of town you have never explored on foot",s:"out",b:"free",e:"active"},
+    {t:"Visit a museum or gallery and rate every piece out of ten",s:"out",b:"low",e:"cozy"},
+    {t:"Try a class together — pottery, dancing, cooking",s:"out",b:"treat",e:"active"},
+    {t:"Farmers market trip, then cook what you found",s:"out",b:"low",e:"active"},
+    {t:"Mini golf, bowling, or an arcade — keep score",s:"out",b:"low",e:"active"},
+    {t:"Coffee shop hop — one drink each, three different places",s:"out",b:"low",e:"cozy"},
+    {t:"Stargazing with a flask of something warm",s:"out",b:"free",e:"cozy"},
+    {t:"Recreate your first date as closely as you can",s:"out",b:"treat",e:"cozy"},
+    {t:"A long walk with a deep-questions list — no small talk allowed",s:"out",b:"free",e:"active"},
+    {t:"Write each other a letter, then read them aloud over dinner",s:"in",b:"free",e:"cozy"},
+    {t:"Plan your dream trip together, even if it is years away",s:"in",b:"free",e:"cozy"},
+    {t:"Themed dinner night — pick a country, dress, cook, decorate",s:"in",b:"low",e:"active"},
+    {t:"Book a fancy meal you have been meaning to try",s:"out",b:"treat",e:"cozy"}
+  ];
+  function gen(){
+    const S=g('setting').value,B=g('budget').value,E=g('energy').value;
+    let pool=IDEAS.filter(x=>(S==='any'||x.s===S)&&(B==='any'||x.b===B)&&(E==='any'||x.e===E));
+    if(!pool.length)pool=IDEAS.filter(x=>(S==='any'||x.s===S));
+    if(!pool.length)pool=IDEAS;
+    const pick=pool[Math.floor(Math.random()*pool.length)];
+    const map={in:'At home',out:'Out',free:'Free',low:'Low cost',treat:'A treat',cozy:'Cozy',active:'Active'};
+    const metaBadges=[
+      {bg:'#F4C542',color:'#1A1A1A',val:map[pick.s]},
+      {bg:'#FF69B4',color:'#fff',val:map[pick.b]},
+      {bg:'#A6D76A',color:'#1A1A1A',val:map[pick.e]}
+    ];
+    const ideaEl=g('idea');
+    ideaEl.style.display='block';
+    ideaEl.style.padding='0';
+    ideaEl.style.overflow='hidden';
+    ideaEl.style.borderRadius='14px';
+    ideaEl.style.border='3px solid #A6D76A';
+    ideaEl.style.boxShadow='0 5px 0 rgba(0,0,0,0.1)';
+    ideaEl.innerHTML=`
+      <div style="background:#F27C38;border-radius:11px 11px 0 0;padding:14px 20px;">
+        <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.6rem;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">Tonight's Idea</div>
+        <div style="color:rgba(255,255,255,0.88);font-size:0.9rem;margin-top:2px;">Matched to your filters — hit Generate again if you want another</div>
+      </div>
+      <div style="padding:20px 24px;background:#FFF2E1;">
+        <div style="font-size:1.15rem;font-weight:600;color:#1A1A1A;line-height:1.6;margin-bottom:14px;">${pick.t}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+          ${metaBadges.map(b=>`<span style="display:inline-block;background:${b.bg};color:${b.color};font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;">${b.val}</span>`).join('')}
+        </div>
+        <button style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:10px 22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);" onclick="gen()">↻ Try Another</button>
+      </div>`;
+  }
+</script>
+</body>
+</html>
