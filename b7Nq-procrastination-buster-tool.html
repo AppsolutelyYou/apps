@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procrastination Buster Tool · Perfectly Apped</title>
+<!-- font replaced by Perfectly Apped -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0 }
+body { min-height: 100vh }
+h1 { text-align: center; margin-bottom: 4px }
+.subtitle { text-align: center; margin-bottom: 28px }
+/* Phase wrapper */
+  .phase { display: none; max-width: 580px; margin: 0 auto }
+.phase.active { display: block }
+/* Cards */
+  .card { padding: 24px; margin-bottom: 18px }
+.phase-label { margin-bottom: 8px }
+.phase-q { margin-bottom: 16px }
+.task-display { margin-bottom: 16px; padding: 10px 14px }
+/* Task input */
+  .big-input { width: 100%; padding: 12px 16px; margin-bottom: 14px }
+.commit-input { width: 100%; padding: 10px 13px; margin-bottom: 12px }
+/* Buttons */
+  .btn-gold { padding: 12px 36px; cursor: pointer; width: 100% }
+.btn-gold:disabled { cursor: default }
+.btn-ghost { padding: 10px 28px; cursor: pointer; width: 100%; margin-top: 8px }
+/* Reason cards */
+  .reasons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px }
+.reason-card { padding: 12px 10px; cursor: pointer; text-align: center }
+.reason-card .r-icon { display: block; margin-bottom: 5px }
+.reason-card .r-label { display: block; margin-bottom: 2px }
+.reason-card .r-desc { display: block }
+/* Strategy */
+  .strategy-box { padding: 18px; margin-bottom: 14px }
+.strategy-tag { margin-bottom: 8px }
+/* Timer */
+  .timer-display { text-align: center; margin: 24px 0 8px }
+.timer-sub { text-align: center; margin-bottom: 24px }
+.commit-display { text-align: center; padding: 10px 14px; margin-bottom: 16px }
+/* Victory */
+  .victory-icon { text-align: center; margin-bottom: 12px }
+.victory-title { text-align: center; margin-bottom: 8px }
+.victory-sub { text-align: center; margin-bottom: 20px }
+/* Log */
+  .log-item { padding: 10px 0; display: flex; gap: 10px; align-items: flex-start }
+.log-cause { padding: 2px 8px; white-space: nowrap; flex-shrink: 0; margin-top: 2px }
+.log-task { flex: 1 }
+.log-date { white-space: nowrap }
+.empty { text-align: center; padding: 14px 0 }
+footer { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; padding: 10px }
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="ay-brand">
+/* ── PERFECTLY APPED BRAND ── */
+:root {
+  --bg: #2E7D73;
+  --panel: #FFF2E1;
+  --header: #F27C38;
+  --mustard: #F4C542;
+  --green: #A6D76A;
+  --pink: #FF69B4;
+  --dark: #1A1A1A;
+  --muted: #7A7A6A;
+  --yes: #44cc66;
+  --no: #e07070;
+}
+body { background: var(--bg); color: #2A2A1A; font-family: 'DM Sans', sans-serif; line-height: 1.6; padding: 24px 16px 40px; margin: 0; }
+.container, .wrap { padding-left: 0; padding-right: 0; }
+h1, h2, h3, h4 { font-family: 'Fredoka One', cursive; font-weight: 400; }
+h1 { color: var(--dark); font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.2; }
+h2, h3 { color: var(--dark); }
+.app-header, header.branded {
+  background: var(--header);
+  border-radius: 18px;
+  padding: 28px 24px 24px;
+  margin: 0 auto 24px;
+  max-width: 820px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+  border: 3px solid rgba(255,255,255,0.25);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.app-header h1, header.branded h1 {
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.app-header p, header.branded p, .app-header .subtitle, header.branded .subtitle, .app-header .sub, header.branded .sub {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.97rem;
+  position: relative; z-index: 1;
+  max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  opacity: 1;
+}
+.app-header::before, header.branded::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(244,197,66,0.25);
+  border-radius: 50%;
+}
+.app-header::after, header.branded::after {
+  content: '';
+  position: absolute; bottom: -20px; left: -20px;
+  width: 80px; height: 80px;
+  background: rgba(255,105,180,0.2);
+  border-radius: 50%;
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card {
+  background: var(--panel);
+  border: 3px solid var(--green);
+  border-radius: 14px;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card { color: #2A2A1A; }
+.card-title, .section-title, .card h2, .card h3, .section h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: #2A2A1A;
+  font-size: 1.05rem;
+}
+.stat-n, .stat-val, .stat-value, .stat-num { color: var(--mustard); font-family: 'Fredoka One', cursive; font-weight: 400; }
+label, .field-label, .label {
+  color: #2A2A1A;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  opacity: 1;
+}
+input, select, textarea {
+  background: #ffffff;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.93rem;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,105,180,0.15);
+}
+input::placeholder, textarea::placeholder { color: #bbb; }
+select option { background: #fff; color: var(--dark); }
+button, .btn, .btn-gold, .btn-add, .btn-submit, .btn-generate, .add-btn, .dl-btn, .generate-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  padding: 12px 24px;
+}
+button:hover, .btn:hover, .btn-gold:hover, .btn-add:hover, .btn-submit:hover, .add-btn:hover, .dl-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+  transform: translateY(-2px);
+}
+.btn-outline, button.outline, button.secondary, .copy-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+}
+.btn-outline:hover, button.outline:hover, .copy-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+}
+.btn-add, .add-btn { padding: 10px 18px; font-size: 0.95rem; }
+.btn-ghost, .btn-complete, .btn-icon, .del-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: color 0.15s, background 0.15s;
+}
+.btn-ghost:hover, .del-btn:hover { color: var(--no); background: rgba(224,112,112,0.1); transform: none; }
+.btn-complete:hover { color: var(--yes); background: rgba(68,204,102,0.1); transform: none; }
+.btn-checkin {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+}
+.btn-checkin:hover { background: var(--mustard); color: var(--dark); transform: none; }
+.opt, .tab-btn, .format-btn {
+  background: transparent;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s;
+}
+.opt.sel, .opt.active, .tab-btn.active, .format-btn.active, .format-btn.sel {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+}
+.cc { border-radius: 14px; overflow: hidden; border: 3px solid var(--green); box-shadow: 0 5px 0 rgba(0,0,0,0.1); }
+.cc-top { background: var(--panel); color: var(--dark); }
+.cc-title { font-family: 'Fredoka One', cursive; font-weight: 400; color: var(--dark); }
+.cc-desc, .cc-meta { color: var(--muted); }
+.cc-footer { background: var(--panel); border-top: 1px solid rgba(166,215,106,0.4); }
+.cc-prog-bar { background: rgba(0,0,0,0.08); }
+.ci-form { background: #fff8ef; border-top: 2px solid var(--green); }
+.last-commit-note { background: var(--bg); color: rgba(255,255,255,0.88); border-left: 3px solid var(--mustard); border-radius: 0 8px 8px 0; }
+.kchip { background: #fff; color: var(--dark); border: 2px solid var(--green); border-radius: 8px; font-weight: 600; cursor: pointer; }
+.kchip.sel-yes     { border-color: var(--yes);    color: var(--yes);    background: rgba(68,204,102,0.08); }
+.kchip.sel-partial { border-color: var(--mustard);color: var(--mustard);background: rgba(244,197,66,0.08); }
+.kchip.sel-no      { border-color: var(--no);     color: var(--no);     background: rgba(224,112,112,0.08); }
+.pchip { background: #fff; color: var(--muted); border: 2px solid var(--green); border-radius: 7px; font-weight: 600; cursor: pointer; }
+.pchip.sel { border-color: var(--pink); color: var(--pink); background: rgba(255,105,180,0.08); }
+.hist-item { border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.hist-title { color: var(--dark); font-weight: 500; }
+.hist-meta { color: var(--muted); }
+.empty { color: var(--muted); }
+.date-label { color: rgba(255,255,255,0.5); }
+.btn-done-today { color: var(--yes); font-weight: 700; font-size: 0.78rem; }
+.err { color: var(--no); }
+.badge, .kept-badge { border-radius: 10px; border: 1px solid; }
+.entry-row, .prog-row { background: var(--panel); border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.prog-bar-track { background: rgba(0,0,0,0.08); }
+.prog-bar-fill { background: var(--mustard); }
+.plan-header { text-align: center; }
+.plan-goal { font-family: 'Fredoka One', cursive; font-weight: 400; font-size: 1.4rem; color: var(--mustard); }
+.plan-sub { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+.month-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2A2A1A; }
+.month-milestone { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1.05rem; color: #2A2A1A; }
+.action-item { color: #2A2A1A; font-size: 0.88rem; font-weight: 400; }
+.action-dot { color: #2A2A1A; }
+.action-num { color: #2A2A1A; font-weight: 400; }
+footer {
+  position: static !important;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  padding: 24px 16px 40px;
+  margin-top: 32px;
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: transparent !important;
+  color: #1A1A1A !important;
+  border: 2px solid #A6D76A !important;
+  border-radius: 10px !important;
+  font-family: 'Fredoka One', cursive !important;
+  font-size: 1rem !important;
+  padding: 11px 22px !important;
+  cursor: pointer !important;
+  transition: background 0.18s, color 0.18s, transform 0.15s !important;
+  box-shadow: none !important;
+}
+.btn-secondary:hover {
+  background: #A6D76A !important;
+  color: #1A1A1A !important;
+  transform: translateY(-2px) !important;
+}
+</style>
+</head>
+<body>
+
+<header class="app-header"><h1>Procrastination Buster</h1>
+<p class="subtitle">Name what you're avoiding. Find out why. Break through it.</p></header>
+
+<!-- Phase 1: Input -->
+<div class="phase active" id="ph-input">
+  <div style="padding:0;overflow:hidden;border-radius:14px;border:3px solid #A6D76A;box-shadow:0 5px 0 rgba(0,0,0,0.1);max-width:580px;margin:0 auto 18px;">
+    <div style="background:#F27C38;border-radius:11px 11px 0 0;padding:14px 20px;">
+      <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.6rem;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">What Are You Avoiding?</div>
+      <div style="color:rgba(255,255,255,0.88);font-size:0.9rem;margin-top:2px;">Step 1 of 4 — be specific, not polite</div>
+    </div>
+    <div style="padding:20px 24px;background:#FFF2E1;">
+      <input class="big-input" id="taskInput" placeholder="e.g. 'Write the intro for my sales page', 'Call the accountant', 'Start that thing'…" maxlength="120" style="width:100%;padding:12px 16px;margin-bottom:14px;" />
+      <button style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);width:100%;" onclick="goToDiagnose()">Diagnose It →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 2: Diagnose -->
+<div class="phase" id="ph-diagnose">
+  <div style="padding:0;overflow:hidden;border-radius:14px;border:3px solid #A6D76A;box-shadow:0 5px 0 rgba(0,0,0,0.1);max-width:580px;margin:0 auto 18px;">
+    <div style="background:#F27C38;border-radius:11px 11px 0 0;padding:14px 20px;">
+      <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.6rem;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">Why Are You Avoiding It?</div>
+      <div style="color:rgba(255,255,255,0.88);font-size:0.9rem;margin-top:2px;">Step 2 of 4 — pick what's really going on</div>
+    </div>
+    <div style="padding:20px 24px;background:#FFF2E1;">
+      <div id="taskDisplay1" style="background:#fff;border:2px solid #A6D76A;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:0.93rem;color:#2A2A1A;font-weight:600;"></div>
+      <div class="reasons" id="reasonGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
+      <button style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);width:100%;" id="diagnoseBtn" onclick="goToStrategy()" disabled>Get My Strategy →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 3: Strategy -->
+<div class="phase" id="ph-strategy">
+  <div style="padding:0;overflow:hidden;border-radius:14px;border:3px solid #A6D76A;box-shadow:0 5px 0 rgba(0,0,0,0.1);max-width:580px;margin:0 auto 18px;">
+    <div style="background:#F27C38;border-radius:11px 11px 0 0;padding:14px 20px;">
+      <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.6rem;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">Here's Your Move</div>
+      <div style="color:rgba(255,255,255,0.88);font-size:0.9rem;margin-top:2px;">Step 3 of 4 — a strategy matched to your actual blocker</div>
+    </div>
+    <div style="padding:20px 24px;background:#FFF2E1;">
+      <div style="background:#fff;border:2px solid #A6D76A;border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:0.93rem;color:#2A2A1A;" id="taskDisplay2"></div>
+      <div style="margin-bottom:16px;">
+        <span style="display:inline-block;background:#A6D76A;color:#1A1A1A;font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:8px;">YOUR STRATEGY</span>
+        <div class="strategy-text" id="strategyText" style="color:#2A2A1A;font-size:0.93rem;line-height:1.7;"></div>
+      </div>
+      <div style="font-size:0.85rem;font-weight:700;color:#1A1A1A;margin-bottom:6px;letter-spacing:0.3px;">Your first 5-minute action</div>
+      <input class="commit-input" id="commitInput" placeholder="I will…" maxlength="100" style="width:100%;padding:10px 13px;margin-bottom:14px;" />
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);" onclick="goToTimer()">Start 5-Minute Sprint →</button>
+        <button style="background:transparent;color:#1A1A1A;border:2px solid #A6D76A;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;" onclick="goTo('ph-input')">← Start Over</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 4: Timer -->
+<div class="phase" id="ph-timer">
+  <div style="padding:0;overflow:hidden;border-radius:14px;border:3px solid #A6D76A;box-shadow:0 5px 0 rgba(0,0,0,0.1);max-width:580px;margin:0 auto 18px;">
+    <div style="background:#A6D76A;border-radius:11px 11px 0 0;padding:14px 20px;">
+      <div style="font-family:'Fredoka One',cursive;color:#1A1A1A;font-size:1.6rem;text-shadow:1px 2px 0 rgba(0,0,0,0.08);">Step 4 of 4 — Just Start</div>
+      <div style="color:rgba(0,0,0,0.6);font-size:0.9rem;margin-top:2px;">You're doing it. Five minutes is enough.</div>
+    </div>
+    <div style="padding:24px;background:#FFF2E1;text-align:center;">
+      <div id="commitDisplay" style="background:#fff;border:2px solid #A6D76A;border-radius:10px;padding:12px 16px;margin-bottom:20px;font-size:0.93rem;color:#2A2A1A;font-style:italic;"></div>
+      <div id="timerDisplay" style="font-family:'Fredoka One',cursive;font-size:4rem;color:#F27C38;line-height:1;margin-bottom:6px;">5:00</div>
+      <div id="timerSub" style="font-size:0.85rem;color:#7A7A6A;margin-bottom:24px;">minutes of focused starting</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button id="timerBtn" style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 26px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);" onclick="toggleTimer()">Start Timer</button>
+        <button style="background:transparent;color:#1A1A1A;border:2px solid #A6D76A;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;" onclick="goToVictory()">I Did It — Mark Done ✓</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Phase 5: Victory -->
+<div class="phase" id="ph-victory">
+  <div style="padding:0;overflow:hidden;border-radius:14px;border:3px solid #A6D76A;box-shadow:0 5px 0 rgba(0,0,0,0.1);max-width:580px;margin:0 auto 18px;">
+    <div style="background:#A6D76A;border-radius:11px 11px 0 0;padding:14px 20px;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:4px;">🏆</div>
+      <div style="font-family:'Fredoka One',cursive;color:#1A1A1A;font-size:1.6rem;">Procrastination Busted.</div>
+    </div>
+    <div style="padding:20px 24px;background:#FFF2E1;text-align:center;">
+      <div class="victory-sub" id="victorySub" style="color:#2A2A1A;font-size:0.95rem;line-height:1.7;margin-bottom:20px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <button style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);" onclick="logVictory()">Log This Win & Go Again</button>
+        <button style="background:transparent;color:#1A1A1A;border:2px solid #A6D76A;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;" onclick="goTo('ph-input')">Start a New Task</button>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0;overflow:hidden;border-radius:14px;border:3px solid #A6D76A;box-shadow:0 5px 0 rgba(0,0,0,0.1);max-width:580px;margin:0 auto;" id="logCard">
+    <div style="background:#F27C38;border-radius:11px 11px 0 0;padding:14px 20px;">
+      <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.4rem;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">Victories Log</div>
+    </div>
+    <div style="padding:8px 20px 16px;background:#FFF2E1;">
+      <div id="logList"><p class="empty">No victories yet — bust your first one above.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer><div style="font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:3px;">Perfectly Apped · A Cha-Cha-Tchotchkes Collection</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Original app credit: GetPaidToBeYouOnline</div></footer>
+
+<script>
+  const REASONS = [
+    { id:'big',    icon:'🏔', label:'Too big',        desc:'Feels overwhelming',   strategy:`Shrink it to atoms. Your only job right now is the smallest possible first action — not finishing, not even starting well. Just touching it. Open the document. Write one sentence. Make one call. Momentum follows motion.` },
+    { id:'unclear',icon:'🌫', label:'Unclear how',    desc:"Don't know where to start", strategy:`Clarify before you act. Spend 5 minutes answering one question: what do I need to know to take the first step? Research that — only that. Confusion isn't laziness. It's a signal to slow down and define.` },
+    { id:'boring', icon:'😴', label:'Boring or dull', desc:"It's tedious",         strategy:`Temptation bundle it. Pair this task with something you genuinely enjoy — your favorite playlist, a great coffee, a window seat. Your brain responds to rewards. Give it one before the task is done.` },
+    { id:'fear',   icon:'😨', label:'Fear of failure',desc:'What if I get it wrong', strategy:`Name the fear, then name the recovery. What's the worst realistic outcome? Write it down. Then write how you'd survive it. You'll discover it's survivable — and that the doing is less risky than the avoiding.` },
+    { id:'perfect',icon:'✨', label:'Perfectionism',  desc:"It's not ready yet",   strategy:`Done beats perfect, every time. Set a 15-minute timer and produce a 'good enough' version with zero editing. You can improve anything — but you can't improve nothing. Ship the draft.` },
+    { id:'energy', icon:'🪫', label:'Low energy',     desc:"Wrong time, no mood",  strategy:`Shrink the time, not the standard. Five minutes, right now. You don't need to finish. You just need to touch it so your brain stops treating it as untouched. That's the whole goal.` },
+  ];
+
+  const TODAY = new Date().toISOString().slice(0, 10);
+  function fmtDate(iso){ const [y,m,d]=iso.split('-'); return `${m}/${d}/${y}`; }
+  let selectedReason = null, currentTask = '', commitText = '';
+  let timerInterval = null, timerRunning = false, timerSecs = 300;
+  let victories = JSON.parse(localStorage.getItem('pbt_victories') || '[]');
+
+  const REASON_COLORS = ['#F27C38','#F4C542','#FF69B4','#A6D76A','#2E7D73','#F27C38'];
+
+  function buildReasonGrid() {
+    document.getElementById('reasonGrid').innerHTML = REASONS.map((r, i) => {
+      const bg = REASON_COLORS[i % REASON_COLORS.length];
+      const textColor = (bg === '#F4C542' || bg === '#A6D76A') ? '#1A1A1A' : '#fff';
+      return `<div id="rc-${r.id}" onclick="selectReason('${r.id}')"
+        style="padding:14px 12px;cursor:pointer;text-align:center;border-radius:12px;border:2px solid ${bg};background:#fff;transition:all 0.15s;">
+        <span style="display:block;font-size:1.6rem;margin-bottom:6px;">${r.icon}</span>
+        <span style="display:block;font-weight:700;color:#1A1A1A;font-size:0.9rem;margin-bottom:3px;">${r.label}</span>
+        <span style="display:block;font-size:0.78rem;color:#7A7A6A;">${r.desc}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function selectReason(id) {
+    selectedReason = id;
+    REASONS.forEach((r, i) => {
+      const el = document.getElementById('rc-' + r.id);
+      const bg = REASON_COLORS[i % REASON_COLORS.length];
+      const textColor = (bg === '#F4C542' || bg === '#A6D76A') ? '#1A1A1A' : '#fff';
+      if (r.id === id) {
+        el.style.background = bg;
+        el.style.borderColor = bg;
+        el.querySelectorAll('span').forEach(s => s.style.color = textColor);
+      } else {
+        el.style.background = '#fff';
+        el.style.borderColor = bg;
+        el.querySelectorAll('span').forEach((s, si) => {
+          s.style.color = si === 1 ? '#1A1A1A' : '#7A7A6A';
+        });
+      }
+    });
+    document.getElementById('diagnoseBtn').disabled = false;
+  }
+
+  function goTo(phaseId) {
+    document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+    document.getElementById(phaseId).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function goToDiagnose() {
+    currentTask = document.getElementById('taskInput').value.trim();
+    if (!currentTask) return;
+    selectedReason = null;
+    document.getElementById('diagnoseBtn').disabled = true;
+    document.getElementById('taskDisplay1').textContent = currentTask;
+    buildReasonGrid();
+    goTo('ph-diagnose');
+  }
+
+  function goToStrategy() {
+    if (!selectedReason) return;
+    const r = REASONS.find(r => r.id === selectedReason);
+    document.getElementById('taskDisplay2').textContent = currentTask;
+    document.getElementById('strategyText').textContent = r.strategy;
+    document.getElementById('commitInput').value = '';
+    goTo('ph-strategy');
+  }
+
+  function goToTimer() {
+    commitText = document.getElementById('commitInput').value.trim() || 'Just start — five minutes.';
+    timerSecs = 300; timerRunning = false;
+    clearInterval(timerInterval);
+    document.getElementById('commitDisplay').textContent = `"${commitText}"`;
+    document.getElementById('timerDisplay').textContent = '5:00';
+    document.getElementById('timerBtn').textContent = 'Start Timer';
+    document.getElementById('timerSub').textContent = 'minutes of focused starting';
+    goTo('ph-timer');
+  }
+
+  function toggleTimer() {
+    if (timerRunning) {
+      clearInterval(timerInterval); timerRunning = false;
+      document.getElementById('timerBtn').textContent = 'Resume';
+    } else {
+      timerRunning = true;
+      document.getElementById('timerBtn').textContent = 'Pause';
+      timerInterval = setInterval(() => {
+        timerSecs--;
+        const m = Math.floor(timerSecs / 60), s = timerSecs % 60;
+        document.getElementById('timerDisplay').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+        if (timerSecs <= 0) { clearInterval(timerInterval); timerRunning = false; goToVictory(); }
+      }, 1000);
+    }
+  }
+
+  function goToVictory() {
+    clearInterval(timerInterval); timerRunning = false;
+    const r = REASONS.find(r => r.id === selectedReason);
+    document.getElementById('victorySub').innerHTML =
+      `You started <strong style="color:#F4C542">"${currentTask}"</strong> — which is the hardest part.<br>The task isn't finished. But you're no longer stuck.`;
+    renderLog(); goTo('ph-victory');
+  }
+
+  function logVictory() {
+    const r = REASONS.find(r => r.id === selectedReason);
+    victories.unshift({ id: Date.now(), task: currentTask, cause: r?.label || '—', date: TODAY });
+    localStorage.setItem('pbt_victories', JSON.stringify(victories));
+    document.getElementById('taskInput').value = '';
+    renderLog(); goTo('ph-input');
+  }
+
+  const CAUSE_COLORS={
+    'Too big':{bg:'#F27C38',color:'#fff'},
+    'Unclear how':{bg:'#F4C542',color:'#1A1A1A'},
+    'Boring or dull':{bg:'#A6D76A',color:'#1A1A1A'},
+    'Fear of failure':{bg:'#FF69B4',color:'#fff'},
+    'Perfectionism':{bg:'#2E7D73',color:'#fff'},
+    'Low energy':{bg:'#7A7A6A',color:'#fff'},
+    '—':{bg:'#A6D76A',color:'#1A1A1A'}
+  };
+  function renderLog() {
+    const el = document.getElementById('logList');
+    if (!victories.length) { el.innerHTML = '<p class="empty">No victories yet — bust your first one above.</p>'; return; }
+    el.innerHTML = victories.slice(0, 12).map((v,i) => {
+      const rowBg=i%2===0?'#ffffff':'#fffaf3';
+      const bc=CAUSE_COLORS[v.cause]||{bg:'#A6D76A',color:'#1A1A1A'};
+      return `<div style="display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 8px;background:${rowBg};border-bottom:2px dashed rgba(0,0,0,0.07);border-radius:6px;margin-bottom:2px;">
+        <span style="display:inline-block;background:${bc.bg};color:${bc.color};font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;white-space:nowrap;">${v.cause}</span>
+        <span style="color:#2A2A1A;font-size:0.88rem;">${esc(v.task)}</span>
+        <span style="color:#7A7A6A;font-size:0.78rem;white-space:nowrap;">${fmtDate(v.date)}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  document.getElementById('taskInput').addEventListener('keydown', e => { if (e.key === 'Enter') goToDiagnose(); });
+  renderLog();
+</script>
+</body>
+</html>

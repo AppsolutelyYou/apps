@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>200 Ways to Promote Your Digital Product · Perfectly Apped</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #2E7D73;
+    --surface: #FFF2E1;
+    --surface2: #FFF8EE;
+    --header: #F27C38;
+    --mustard: #F4C542;
+    --green: #A6D76A;
+    --pink: #FF69B4;
+    --dark: #1A1A1A;
+    --muted: #5A5A5A;
+    --white: #FFFFFF;
+    --nav-h: 58px;
+    --c1: #F27C38;
+    --c2: #FF69B4;
+    --c3: #A6D76A;
+    --c4: #F4C542;
+    --c5: #F27C38;
+    --c6: #A6D76A;
+    --c7: #FF69B4;
+    --c8: #F4C542;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* ── STICKY NAV ── */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: #1A4A45;
+    border-bottom: 3px solid var(--green);
+    padding: 0 16px;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .sticky-nav::-webkit-scrollbar { display: none; }
+
+  .nav-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 13px;
+    color: var(--mustard);
+    white-space: nowrap;
+    margin-right: 4px;
+    flex-shrink: 0;
+  }
+
+  .nav-btn {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(166,215,106,0.35);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    cursor: pointer;
+    border: none;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--pink);
+    color: #fff;
+  }
+  .nav-btn.filter-active {
+    background: var(--mustard);
+    color: var(--dark);
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    z-index: 99;
+    background: #1A4A45;
+    border-bottom: 2px solid rgba(166,215,106,0.3);
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .progress-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(166,215,106,0.25);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--mustard));
+    border-radius: 20px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 13px;
+    color: var(--mustard);
+    white-space: nowrap;
+  }
+  .progress-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .prog-btn {
+    background: rgba(255,105,180,0.2);
+    border: 1.5px solid rgba(255,105,180,0.4);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--pink);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
+  }
+  .prog-btn:hover {
+    background: var(--pink);
+    color: #fff;
+  }
+  .prog-btn.download-btn {
+    background: rgba(166,215,106,0.2);
+    border-color: rgba(166,215,106,0.4);
+    color: var(--green);
+  }
+  .prog-btn.download-btn:hover {
+    background: var(--green);
+    color: var(--dark);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: calc(var(--nav-h) + 36px + 40px) 48px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .hero-glow {
+    position: absolute; top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(242,124,56,0.22) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 860px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 40px; padding: 8px 22px;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--mustard); margin-bottom: 36px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .hero h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(54px, 9vw, 110px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+  .hero h1 .num { color: var(--mustard); display: block; }
+  .hero h1 .line2 { color: var(--white); display: block; }
+  .hero h1 .line3 {
+    color: rgba(255,255,255,0.4);
+    display: block;
+    font-size: 0.5em;
+    letter-spacing: 0.03em;
+    margin-top: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    max-width: 520px;
+    margin: 0 auto 44px;
+    line-height: 1.55;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 28px;
+    color: var(--mustard);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  .hero-cats {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  }
+  .hero-cat {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 9px 16px;
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    cursor: pointer;
+    border: none;
+  }
+  .hero-cat:hover {
+    background: var(--pink);
+    color: #fff;
+  }
+
+  /* ── FILTER BANNER ── */
+  .filter-banner {
+    display: none;
+    position: sticky;
+    top: calc(var(--nav-h) + 36px);
+    z-index: 98;
+    background: var(--mustard);
+    padding: 8px 24px;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 14px;
+    color: var(--dark);
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+  }
+  .filter-banner.visible { display: flex; }
+  .clear-filter-btn {
+    background: var(--dark);
+    color: var(--mustard);
+    border: none;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* ── CONTENT SECTIONS ── */
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 72px 48px; }
+
+  .cat-sec {
+    background: var(--surface);
+    border-top: 3px solid var(--green);
+    scroll-margin-top: calc(var(--nav-h) + 36px + 4px);
+  }
+  .cat-sec:nth-child(even) { background: var(--surface2); }
+
+  .cat-header { margin-bottom: 32px; }
+
+  .cat-tag-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cat-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    border-radius: 40px; padding: 5px 16px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .cat-count-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(166,215,106,0.2);
+    color: #3A7A10;
+    border: 1px solid rgba(166,215,106,0.4);
+  }
+  .cat-count-badge .checked-count { color: var(--header); }
+
+  .cat-h {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 6px;
+    color: var(--header);
+  }
+
+  .cat-desc {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* WAYS GRID */
+  .ways { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+
+  .way {
+    background: #fff;
+    border: 3px solid var(--green);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .way:hover { border-color: var(--pink); box-shadow: 0 3px 12px rgba(255,105,180,0.2); }
+  .way.checked {
+    border-color: var(--header);
+    background: #FFF8F0;
+  }
+  .way.hidden-way { display: none; }
+
+  .way-checkbox {
+    width: 46px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 14px;
+    color: var(--green);
+    border-right: 2px solid var(--green);
+    background: rgba(166,215,106,0.08);
+    flex-direction: column;
+    gap: 4px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .way.checked .way-checkbox {
+    background: rgba(242,124,56,0.12);
+    border-color: var(--header);
+    color: var(--header);
+  }
+
+  .way-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 13px;
+    line-height: 1;
+  }
+  .check-icon {
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .way.checked .check-icon { opacity: 1; }
+
+  .way-body { padding: 13px 16px; flex: 1; }
+  .way-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+  .way.checked .way-title { color: var(--header); }
+  .way-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* CATEGORY ACCENT COLORS */
+  .t1 .cat-tag { background: rgba(242,124,56,0.12); color: var(--c1); border: 1.5px solid rgba(242,124,56,0.25); }
+  .t2 .cat-tag { background: rgba(255,105,180,0.1); color: var(--c2); border: 1.5px solid rgba(255,105,180,0.25); }
+  .t3 .cat-tag { background: rgba(166,215,106,0.15); color: #4A8A1A; border: 1.5px solid rgba(166,215,106,0.4); }
+  .t4 .cat-tag { background: rgba(244,197,66,0.15); color: #8A6A00; border: 1.5px solid rgba(244,197,66,0.35); }
+  .t5 .cat-tag { background: rgba(242,124,56,0.12); color: var(--c5); border: 1.5px solid rgba(242,124,56,0.25); }
+  .t6 .cat-tag { background: rgba(166,215,106,0.15); color: #4A8A1A; border: 1.5px solid rgba(166,215,106,0.4); }
+  .t7 .cat-tag { background: rgba(255,105,180,0.1); color: var(--c7); border: 1.5px solid rgba(255,105,180,0.25); }
+  .t8 .cat-tag { background: rgba(244,197,66,0.15); color: #8A6A00; border: 1.5px solid rgba(244,197,66,0.35); }
+
+  /* ── CLOSING ── */
+  .closing {
+    background: #1A4A45;
+    border-top: 3px solid var(--green);
+    text-align: center;
+  }
+  .closing .wrap { padding-top: 80px; padding-bottom: 80px; }
+  .closing h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(32px,5vw,56px);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+  .closing h2 em {
+    font-style: italic;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--mustard);
+    font-weight: 300;
+  }
+  .closing-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    max-width: 460px;
+    margin: 0 auto 48px;
+  }
+
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    max-width: 720px;
+    margin: 0 auto 52px;
+    text-align: left;
+  }
+  .action-card {
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(166,215,106,0.3);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .action-week {
+    font-family: 'Fredoka One', cursive;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--mustard);
+    margin-bottom: 8px;
+  }
+  .action-task { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.55; }
+
+  .back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--pink);
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    padding: 10px 22px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: background 0.18s;
+  }
+  .back-to-top:hover { background: var(--mustard); color: var(--dark); }
+
+  /* ── FOOTER ── */
+  .app-footer {
+    background: #0D2E2A;
+    padding: 20px 48px;
+    text-align: center;
+    border-top: 3px solid var(--green);
+  }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--dark);
+    color: #fff;
+    border-radius: 40px;
+    padding: 12px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 999;
+    transition: transform 0.3s ease;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .hero { padding: calc(var(--nav-h) + 36px + 30px) 24px 60px; }
+    .wrap { padding: 48px 20px; }
+    .ways { grid-template-columns: 1fr; }
+    .action-grid { grid-template-columns: repeat(2,1fr); }
+    .hero-cats { gap: 8px; }
+    .app-footer { padding: 20px 24px; }
+    .progress-actions { gap: 4px; }
+    .prog-btn { padding: 3px 8px; font-size: 10px; }
+  }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  .hero-inner > * { animation: fadeUp 0.6s ease both; }
+  .hero-badge { animation-delay: 0.05s; }
+  .hero h1 { animation-delay: 0.15s; }
+  .hero-sub { animation-delay: 0.25s; }
+  .hero-stats { animation-delay: 0.35s; }
+  .hero-cats { animation-delay: 0.45s; }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav" id="stickyNav">
+  <span class="nav-label">Jump to →</span>
+  <button class="nav-btn" onclick="filterCat('cat1', this)">📱 Social</button>
+  <button class="nav-btn" onclick="filterCat('cat2', this)">📧 Email</button>
+  <button class="nav-btn" onclick="filterCat('cat3', this)">🤝 Collabs</button>
+  <button class="nav-btn" onclick="filterCat('cat4', this)">🔍 SEO</button>
+  <button class="nav-btn" onclick="filterCat('cat5', this)">💬 Community</button>
+  <button class="nav-btn" onclick="filterCat('cat6', this)">🎙️ Audio & Video</button>
+  <button class="nav-btn" onclick="filterCat('cat7', this)">💰 Paid & Affiliates</button>
+  <button class="nav-btn" onclick="filterCat('cat8', this)">⚡ Quick Wins</button>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <span class="progress-label" id="progressLabel">0 of 200 explored</span>
+  <div class="progress-actions">
+    <button class="prog-btn" onclick="clearAll()">Clear All</button>
+    <button class="prog-btn download-btn" onclick="downloadChecked()">↓ My List</button>
+  </div>
+</div>
+
+<!-- FILTER BANNER -->
+<div class="filter-banner" id="filterBanner">
+  <span id="filterBannerText">Showing: Social Media</span>
+  <button class="clear-filter-btn" onclick="clearFilter()">Show All 200</button>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">The complete promotion playbook</div>
+    <h1>
+      <span class="num">200</span>
+      <span class="line2">Ways to Promote</span>
+      <span class="line3">Your Digital Product</span>
+    </h1>
+    <p class="hero-sub">Your product exists.<br>Now let's make sure people actually find it.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">200</div>
+        <div class="hero-stat-label">Strategies</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Categories</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="heroChecked">0</div>
+        <div class="hero-stat-label">Explored</div>
+      </div>
+    </div>
+    <div class="hero-cats">
+      <button class="hero-cat" onclick="filterCat('cat1')">📱 Social Media</button>
+      <button class="hero-cat" onclick="filterCat('cat2')">📧 Email Marketing</button>
+      <button class="hero-cat" onclick="filterCat('cat3')">🤝 Collabs & Bundles</button>
+      <button class="hero-cat" onclick="filterCat('cat4')">🔍 SEO & Content</button>
+      <button class="hero-cat" onclick="filterCat('cat5')">💬 Community</button>
+      <button class="hero-cat" onclick="filterCat('cat6')">🎙️ Audio & Video</button>
+      <button class="hero-cat" onclick="filterCat('cat7')">💰 Paid & Affiliates</button>
+      <button class="hero-cat" onclick="filterCat('cat8')">⚡ Quick Wins</button>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 1: SOCIAL MEDIA -->
+<section class="cat-sec t1" id="cat1">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">📱 Category 01</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count1">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Social Media</h2>
+      <p class="cat-desc">25 ways to use your social platforms to drive consistent eyes to your offer — without paying for ads.</p>
+    </div>
+    <div class="ways" id="ways1">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">001</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Pin your product link in your bio</p><p class="way-desc">Your bio link is the highest-traffic real estate you have. Make it go to your product, not your homepage.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">002</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a "what's inside" carousel</p><p class="way-desc">Show exactly what buyers get — slide by slide. Specific beats vague every time.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">003</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share a before/after transformation post</p><p class="way-desc">Before your product → after your product. Results in visual form convert better than any sales copy.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">004</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a "DM me the word [X]" post</p><p class="way-desc">Ask followers to DM a keyword to receive your product link. Boosts engagement and creates warm leads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">005</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "who it's for" post</p><p class="way-desc">List the specific types of people your product helps. The more specific, the more qualified clicks.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">006</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share a testimonial as a post</p><p class="way-desc">Screenshot a real result or review and post it. Social proof from others converts better than your own claims.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">007</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Do a "day in the life" story series</p><p class="way-desc">Show how you use your own product in your daily workflow. Authenticity builds desire.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">008</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a "problem → solution" Reel</p><p class="way-desc">Open with the pain. Close with your product as the answer. 30–60 seconds. Direct link in bio.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">009</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use the Instagram collab post feature</p><p class="way-desc">Partner with a complementary creator on one post. Both audiences see it simultaneously.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">010</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share a "hot take" post related to your product topic</p><p class="way-desc">A bold opinion drives comments, shares, and profile visits — all leading back to your offer.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">011</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post on Threads daily linking back to your product</p><p class="way-desc">Short text posts on Threads reach new audiences fast. End every thread with your product link or a DM call.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">012</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a Pinterest pin for each section of your product</p><p class="way-desc">Pinterest drives traffic for months. One board of pins = passive discovery from search.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">013</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a "what I got for $[price]" reveal</p><p class="way-desc">Frame your product as an incredible deal by showing its full value vs. the low price.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">014</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Go Live and demo your product</p><p class="way-desc">Show the product in action. Live viewers are your warmest audience. Keep the link in your bio during the live.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">015</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share a "myth vs. truth" post about your niche</p><p class="way-desc">Bust a common misconception. Position your product as the real solution. Saves get shares get sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">016</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use story countdown stickers for a launch</p><p class="way-desc">Build anticipation before your product goes live. Followers opt in to be notified. Perfect warm list.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">017</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a "5 reasons to grab [product]" list post</p><p class="way-desc">Simple, direct, persuasive. Each reason hits a different buyer motivation.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">018</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a TikTok tutorial related to your product topic</p><p class="way-desc">Teach something for free. Mention your product as the deeper resource. Link in bio.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">019</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Repost your best-performing content about your product</p><p class="way-desc">Most followers never saw it the first time. Re-share your top converting post every 4–6 weeks.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">020</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share a "what people say after buying" post</p><p class="way-desc">Compile 3–5 buyer reactions. Authentic, unpolished reviews outperform polished testimonials.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">021</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a checklist from inside your product</p><p class="way-desc">Give one page of value for free. End with "get the full version" and your link. Saveable content drives discovery.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">022</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use LinkedIn to reach a professional audience</p><p class="way-desc">Long-form posts about your expertise + a mention of your product reach a different buyer than Instagram.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">023</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post your product in relevant Facebook groups</p><p class="way-desc">Find the groups. Read the rules. Share value first, then mention your product naturally.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">024</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "get this for free when you buy" story post</p><p class="way-desc">Announce a bonus. Bonuses increase perceived value and urgency without lowering the price.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">025</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post consistently at your best performing time</p><p class="way-desc">Inconsistency kills reach. A daily post about your product at peak hours compounds over weeks.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 2: EMAIL MARKETING -->
+<section class="cat-sec t2" id="cat2">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">📧 Category 02</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count2">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Email Marketing</h2>
+      <p class="cat-desc">Your email list is the most valuable asset you own. These 25 ways turn subscribers into buyers.</p>
+    </div>
+    <div class="ways" id="ways2">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">026</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a dedicated launch email</p><p class="way-desc">One email about one product. No distractions. Clear CTA. Your most powerful selling tool.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">027</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a story email that leads to your product</p><p class="way-desc">Open with a relatable story. Pivot to how your product solves it. The best emails read like letters.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">028</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "here's what's inside" breakdown email</p><p class="way-desc">Detail every section, module, or component. Specificity reduces uncertainty and increases clicks.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">029</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a re-engagement email to cold subscribers</p><p class="way-desc">Warm them up with a free resource. Follow up 2 days later with your paid product offer.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">030</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Include your product link in every email footer</p><p class="way-desc">A subtle "P.S. — grab [product] here" at the bottom of every email generates passive clicks daily.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">031</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "5 things you didn't know" email</p><p class="way-desc">Teach 5 insights from your product's topic. End with "want the full deep dive? Get [product]."</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">032</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a 3-email mini launch sequence</p><p class="way-desc">Email 1: Problem. Email 2: Solution preview. Email 3: Product + deadline. Simple, effective, repeatable.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">033</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "flash sale" email with a 48-hour deadline</p><p class="way-desc">Urgency drives action. A time-limited offer to your list generates concentrated sales in a short window.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">034</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Mention your product in your weekly newsletter</p><p class="way-desc">Even a P.S. mention in an otherwise non-promotional email drives consistent passive sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">035</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "buyer spotlight" email</p><p class="way-desc">Feature a customer result. Let their story sell for you. Third-party proof is more persuasive than your own pitch.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">036</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a "who this is NOT for" email</p><p class="way-desc">Counterintuitive but powerful. Excluding the wrong buyer builds trust with the right one.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">037</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send an abandoned cart email sequence</p><p class="way-desc">If your platform supports it, follow up within 1 hour, 24 hours, and 72 hours. Recovers 10–15% of lost sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">038</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a product comparison email</p><p class="way-desc">Your product vs. the DIY alternative vs. hiring someone. Make the value case crystal clear.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">039</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "here's what you're missing" email</p><p class="way-desc">Show what life looks like without solving the problem. Then show your product as the bridge.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">040</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use email segmentation to target warm buyers</p><p class="way-desc">Send your product pitch only to subscribers who clicked a related link. Higher relevance = higher conversion.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">041</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Add a product recommendation to your welcome email</p><p class="way-desc">New subscribers are most engaged in the first 48 hours. Introduce your best product immediately.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">042</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "this time last year" transformation email</p><p class="way-desc">Before and after across a longer timeline. Aspirational storytelling that plants desire for your product.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">043</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a plain-text personal email about your product</p><p class="way-desc">No graphics. No design. Just you talking to one person. Plain emails often get double the click rates.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">044</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "biggest mistakes" email in your niche</p><p class="way-desc">List 3–5 mistakes your ideal buyer makes. Position your product as the fix for each one.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">045</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use your email list to validate a new product idea</p><p class="way-desc">Ask subscribers what they need most. Then build it. Launch to the same list. Near-guaranteed sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">046</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run an email-only flash sale</p><p class="way-desc">Reward your subscribers with an exclusive price. Makes them feel special and drives urgency.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">047</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a "quick wins" email using your product's content</p><p class="way-desc">Share 3 fast, actionable tips from inside your product. End with the link to get everything.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">048</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a "here's my honest take" review-style email</p><p class="way-desc">Review your own product like a third party would. Objections addressed, benefits proven, link at the end.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">049</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Test two different subject lines on your list</p><p class="way-desc">A/B test your launch email subject line. The winning subject alone can double your open rate.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">050</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Build an automated evergreen email funnel</p><p class="way-desc">Set it once. Sell forever. A 5–7 email sequence that delivers value and pitches your product runs 24/7.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 3: COLLABS & BUNDLES -->
+<section class="cat-sec t3" id="cat3">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">🤝 Category 03</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count3">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Collabs & Bundles</h2>
+      <p class="cat-desc">Other people's audiences are your fastest growth path. These 25 strategies put your product in front of warm, pre-built communities.</p>
+    </div>
+    <div class="ways" id="ways3">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">051</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Apply to a digital product bundle</p><p class="way-desc">Bundle events put your product in front of thousands of new buyers in days. One application can change your trajectory.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">052</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Reach out to 5 complementary creators this week</p><p class="way-desc">Find creators with overlapping audiences but non-competing products. Propose a newsletter swap or shoutout exchange.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">053</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Do an Instagram Live with another creator</p><p class="way-desc">Both audiences tune in. You each promote to the other's followers in real time. High-trust, high-conversion format.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">054</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a joint product with another creator</p><p class="way-desc">A co-created product combines both audiences at launch. Two creators promoting means double the reach.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">055</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Offer your product as a bonus in someone else's launch</p><p class="way-desc">Approach a creator launching a complementary product. Offer yours as a bonus. You get their audience exposure.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">056</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Join a creator's affiliate program and promote theirs</p><p class="way-desc">Reciprocity builds relationships. Promote theirs first. They're far more likely to promote yours in return.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">057</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Guest post on someone else's blog or newsletter</p><p class="way-desc">Write a high-value article for an established newsletter. Include a mention of your product and a link.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">058</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Pitch yourself as a guest on a podcast</p><p class="way-desc">Find 10 podcasts in your niche. Send a personalized pitch email this week. One yes = thousands of new listeners.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">059</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Set up a referral program for your buyers</p><p class="way-desc">Give buyers a discount or bonus for referring friends. Word-of-mouth from happy customers is your cheapest acquisition.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">060</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Attend a virtual summit as a speaker</p><p class="way-desc">Summits attract pre-qualified audiences hungry for solutions. One talk can drive hundreds of product sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">061</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Host your own virtual summit or workshop</p><p class="way-desc">Invite complementary creators as speakers. They promote to their audiences. You capture all the email leads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">062</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Do a newsletter swap with another creator</p><p class="way-desc">You feature them to your list. They feature you to theirs. Free, fast audience growth with zero ad spend.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">063</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a bundle of your own products</p><p class="way-desc">Package 2–3 of your products at a higher price point. Increases average order value without creating new content.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">064</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Offer a "buy mine, get theirs" cross-promotion</p><p class="way-desc">Partner with a creator. Buyers of your product get a discount on theirs and vice versa. Wins on both sides.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">065</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Join a mastermind or creator group</p><p class="way-desc">Active participation in the right group gets your product mentioned organically in peer recommendations.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">066</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">DM creators in your niche who already recommend products</p><p class="way-desc">They're already affiliate-minded. A quick DM with your product link and commission offer has a high acceptance rate.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">067</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Be a guest in someone else's community or group</p><p class="way-desc">Many community owners love free expert content for their members. One guest session = hundreds of warm leads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">068</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Co-host a webinar with a partner creator</p><p class="way-desc">Each of you teaches one segment. Each of you pitches a product at the end. Shared audience, shared sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">069</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Feature other creators in your content</p><p class="way-desc">Mention, tag, and recommend others sincerely. Many will reciprocate. Generosity is the best networking strategy.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">070</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Apply to be featured in a digital product directory</p><p class="way-desc">Niche-specific directories bring pre-qualified buyers actively searching for solutions. Free listings are available in most niches.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">071</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Offer an exclusive discount to another creator's audience</p><p class="way-desc">Give their followers a special code. The exclusivity increases conversion and the creator looks good for offering it.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">072</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Collaborate on a free resource and co-promote it</p><p class="way-desc">Create a free guide, checklist, or template together. Both promote it. Both capture leads. Both upsell their products.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">073</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Join affiliate platforms that feature your product type</p><p class="way-desc">Platforms like Payhip, Gumroad, and niche directories already have buyers browsing. List your product everywhere.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">074</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Ask a creator to review your product publicly</p><p class="way-desc">Send your product for free to 5 creators in your space. An honest review post to their audience is worth thousands in ads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">075</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Build a long-term affiliate relationship with 3 key promoters</p><p class="way-desc">Find 3 aligned creators who consistently promote. Nurture the relationship. Long-term partners drive more than one-off shoutouts.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 4: SEO & CONTENT -->
+<section class="cat-sec t4" id="cat4">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">🔍 Category 04</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count4">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">SEO & Content</h2>
+      <p class="cat-desc">Content that works while you sleep. These 25 strategies build discoverability that compounds over time.</p>
+    </div>
+    <div class="ways" id="ways4">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">076</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a blog post targeting a keyword your buyer searches</p><p class="way-desc">Find what your ideal buyer Googles. Write the best answer. Include your product as the natural next step.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">077</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Optimize your Etsy or Gumroad listing with keywords</p><p class="way-desc">Platform SEO is often easier than Google. Use the exact words your buyer types in the search bar.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">078</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a YouTube video that answers a common question</p><p class="way-desc">YouTube is the second largest search engine. A 5-minute answer video drives ongoing traffic for years.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">079</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Start a simple blog on your website</p><p class="way-desc">3 posts a month, consistently, compounds into significant organic traffic within 12 months.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">080</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a "best tools for [niche]" roundup post</p><p class="way-desc">Include your product in the roundup. These posts rank well and attract buyers actively researching solutions.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">081</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a free resource that ranks on Google</p><p class="way-desc">A comprehensive free checklist, template, or guide attracts organic traffic. Your paid product is the upsell.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">082</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Optimize your website's meta titles and descriptions</p><p class="way-desc">Your meta description is your ad in Google search results. Write it like a headline, not an afterthought.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">083</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Answer questions on Quora related to your niche</p><p class="way-desc">Find questions your product solves. Give a helpful answer. Link to your product as a resource.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">084</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Pin your product-related content on Pinterest</p><p class="way-desc">Pinterest pins rank in Google. Create keyword-rich pin descriptions. Traffic compounds for 12–18 months per pin.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">085</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Repurpose blog content into social media posts</p><p class="way-desc">One blog post = 10 social posts. Extract tips, quotes, and statistics. Maximum reach from minimum effort.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">086</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a "how to" guide in your niche</p><p class="way-desc">"How to [achieve result]" posts attract people in active problem-solving mode — your best possible audience.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">087</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a comparison post: your product vs. alternatives</p><p class="way-desc">People searching "X vs Y" are close to buying. Win the comparison. Capture the sale.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">088</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Build internal links between your blog posts and product page</p><p class="way-desc">Every blog post should link to your product page. More internal links = stronger SEO signal + more buyer pathways.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">089</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Get backlinks from other websites in your niche</p><p class="way-desc">Each backlink is a vote of confidence to Google. Guest posts, mentions, and directory listings all count.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">090</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a glossary of terms in your niche</p><p class="way-desc">Glossary pages rank well and attract beginners who are ideal first-time buyers for entry-level products.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">091</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a case study using your product</p><p class="way-desc">Document a real result, step by step. Case studies build credibility and rank for specific outcome searches.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">092</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "resources" page on your website</p><p class="way-desc">List all tools, templates, and products you recommend including your own. A resources page drives passive affiliate and product revenue.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">093</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Transcribe your YouTube videos and publish as blog posts</p><p class="way-desc">One video becomes one blog post with zero extra research. Double the indexable content in half the time.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">094</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use long-tail keywords in all your content</p><p class="way-desc">Long-tail phrases like "best digital planner for teachers" have less competition and higher purchase intent.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">095</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Submit your site to Google Search Console</p><p class="way-desc">If Google doesn't know your site exists, it can't rank it. Submit your sitemap. Basic, essential, often skipped.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">096</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write content targeting seasonal buying moments</p><p class="way-desc">New Year, Back to School, Q4 planning — seasonal content attracts buyers at peak motivation.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">097</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a free email course that leads to your product</p><p class="way-desc">5-day email course on a related topic. Day 5 pitches your product to a warmed, educated audience.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">098</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Publish your product on Product Hunt</p><p class="way-desc">A successful Product Hunt launch drives press, backlinks, and thousands of targeted visitors in 24 hours.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">099</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use AI to scale your content production</p><p class="way-desc">AI tools can 10x your content output. More content = more entry points = more buyers finding you organically.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">100</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Build a content calendar and stick to it</p><p class="way-desc">Consistency beats quality in the short term. A content calendar keeps you publishing when motivation is low.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 5: COMMUNITY -->
+<section class="cat-sec t5" id="cat5">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">💬 Category 05</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count5">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Community</h2>
+      <p class="cat-desc">The most loyal buyers come from communities. These 25 strategies build trust at scale.</p>
+    </div>
+    <div class="ways" id="ways5">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">101</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Build a free community around your niche</p><p class="way-desc">A Skool, Circle, or Facebook group gives you a warm audience you own. Your product is the natural next step.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">102</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Be helpful in 3 Facebook groups every day</p><p class="way-desc">Answer questions. Add value. Never sell directly. Consistent helpfulness builds a reputation that drives DMs and sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">103</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share your product in a relevant Reddit community</p><p class="way-desc">Reddit has strict rules. Read them. Add real value first. One well-positioned post can drive thousands of visits.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">104</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Host a free monthly workshop for your community</p><p class="way-desc">Monthly workshops keep members engaged and remind them regularly that your paid products exist.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">105</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create challenges inside your community</p><p class="way-desc">A 5-day or 30-day challenge builds momentum, engagement, and perfect conditions to pitch your product at the end.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">106</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Feature community member wins publicly</p><p class="way-desc">Celebrating results publicly motivates others to seek the same. Your product is the bridge to their win.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">107</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use your community to test new product ideas</p><p class="way-desc">Poll your members. Ask what they need. Build it. Launch to them first. Near-guaranteed sales from a warm audience.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">108</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a Discord server for your niche</p><p class="way-desc">Discord attracts younger, highly engaged communities. Active servers build brand loyalty that converts.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">109</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Engage in Twitter/X conversations about your niche daily</p><p class="way-desc">10 thoughtful replies a day builds a visible presence. Profile visitors click your bio link and find your product.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">110</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Answer DMs quickly and thoroughly</p><p class="way-desc">Fast, helpful DM responses build trust. Trust converts. Every DM is a potential sale waiting to happen.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">111</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a public accountability thread in your community</p><p class="way-desc">Weekly check-in threads keep members active and create regular opportunities to mention your product.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">112</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Invite your top community members to be moderators</p><p class="way-desc">Moderators become brand advocates. Their enthusiasm spreads your message to their networks for free.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">113</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a weekly "this week in [niche]" roundup</p><p class="way-desc">Curating news builds authority and keeps your community coming back. Your product appears alongside trusted content.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">114</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run a community-exclusive flash sale</p><p class="way-desc">Members-only pricing creates real exclusivity. Drives urgency and rewards your most loyal followers.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">115</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "start here" resource that mentions your product</p><p class="way-desc">Every new community member reads the welcome post. Include your product as the recommended next step.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">116</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share your personal story inside the community</p><p class="way-desc">Vulnerability and authenticity build connection. Your origin story + your product = a compelling reason to buy.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">117</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Ask your community to share your product with one friend</p><p class="way-desc">One post asking for a share can multiply your reach overnight. Warm referrals convert at 3–5x cold traffic.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">118</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a community award or recognition system</p><p class="way-desc">Rewarding engagement keeps members active and creates visible social proof of your community's value.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">119</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post regularly at peak engagement hours</p><p class="way-desc">Every community has a peak window. Post then. Visibility drives clicks. Clicks drive sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">120</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Host a live Q&A inside your community</p><p class="way-desc">Live Q&As build trust faster than any content format. Answer questions. Pitch your product at the end.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">121</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a pinned "resources" post with your products listed</p><p class="way-desc">Every member sees pinned posts. A well-written resources pin drives passive product clicks daily.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">122</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Partner with other community owners for cross-promotion</p><p class="way-desc">A shoutout from one community owner to another drives highly targeted new members and product sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">123</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use community feedback to improve your product</p><p class="way-desc">Public improvements based on member feedback create loyalty and word-of-mouth that money can't buy.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">124</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Celebrate community milestones publicly</p><p class="way-desc">100 members, 500 members, 1000 members. Each milestone is a marketing moment and a social proof signal.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">125</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Build relationships before you ever sell anything</p><p class="way-desc">90 days of value before your first pitch. The trust you build makes selling feel effortless when you do.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 6: AUDIO & VIDEO -->
+<section class="cat-sec t6" id="cat6">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">🎙️ Category 06</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count6">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Audio & Video</h2>
+      <p class="cat-desc">Video and audio build the fastest trust. These 25 strategies turn viewers and listeners into buyers.</p>
+    </div>
+    <div class="ways" id="ways6">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">126</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Start a YouTube channel dedicated to your niche</p><p class="way-desc">YouTube compounds. A video posted today can drive sales 3 years from now. Start before you feel ready.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">127</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Launch a podcast in your niche</p><p class="way-desc">Podcasts build deep listener loyalty. A mention of your product in every episode drives passive ongoing sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">128</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a product demo video</p><p class="way-desc">Show your product in action. Seeing the product removes doubt. Post it everywhere: YouTube, Instagram, your sales page.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">129</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Repurpose podcast audio into short video clips</p><p class="way-desc">One podcast episode = 5–10 short clips for Reels, TikTok, and YouTube Shorts. Minimum effort, maximum reach.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">130</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post YouTube Shorts about your product topic</p><p class="way-desc">Shorts get boosted distribution on YouTube. 60-second value content drives subscribers who then buy.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">131</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Host a free webinar and pitch your product at the end</p><p class="way-desc">60 minutes of value + 10-minute pitch. Webinar conversion rates average 15–20% of attendees.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">132</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use Instagram Reels to teach one thing per video</p><p class="way-desc">Teach one tip. End with "more in the link in bio." Reels get organic reach that static posts don't.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">133</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a TikTok series about your product's topic</p><p class="way-desc">A multi-part series keeps viewers coming back. By part 5, they know you well enough to buy.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">134</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Record a "day in my life using my product" video</p><p class="way-desc">Show real, authentic use of your own product. Aspiration + proof + relatability = the perfect selling video.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">135</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Interview a buyer about their results on video</p><p class="way-desc">A buyer testimonial interview is more powerful than any ad. Post it everywhere. It sells for you 24/7.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">136</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Go Live on multiple platforms simultaneously</p><p class="way-desc">Stream to YouTube, Instagram, and Facebook at the same time using a multistreaming tool. Triple the reach, same effort.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">137</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "reaction" video to trending content in your niche</p><p class="way-desc">React to a trending video with your expert commentary. Riding existing traffic patterns accelerates discovery.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">138</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Add your product link to every YouTube video description</p><p class="way-desc">Every description is a free ad slot. Include your product link with a one-line pitch in every single video.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">139</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use YouTube end screens to promote your product</p><p class="way-desc">End screens appear in the last 20 seconds of every video. Add a link to your product or sales page.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">140</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "behind the scenes" video of making your product</p><p class="way-desc">The process story builds perceived value and authenticity. Buyers feel connected to the creator behind the product.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">141</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Submit your podcast to all major directories</p><p class="way-desc">Spotify, Apple, Google, Amazon. Each directory is a new discovery channel for listeners who become buyers.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">142</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Record a free mini-course on YouTube</p><p class="way-desc">A 3–5 video free course builds authority and funnels viewers toward your paid product as the logical upgrade.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">143</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use video testimonials on your sales page</p><p class="way-desc">A 30-second video from a happy buyer on your sales page can double conversion rates versus text alone.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">144</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a FAQ video answering your top objections</p><p class="way-desc">Address the 5 reasons people don't buy. Answer them on video. Removing objections = removing friction = more sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">145</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use closed captions on all your videos</p><p class="way-desc">85% of social media video is watched without sound. Captions make your content accessible and increase watch time.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">146</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post a video specifically for Pinterest</p><p class="way-desc">Pinterest Video Pins get significant organic reach. A how-to video with your product as the solution drives ongoing traffic.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">147</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Record a Loom walkthrough of your product for warm leads</p><p class="way-desc">Send a personalized Loom video to someone who asked about your product. Personal video closes more than any sales page.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">148</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a "results in 30 days" video series</p><p class="way-desc">Document your own or a buyer's results over 30 days using your product. Transformation in real time = compelling content.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">149</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Optimize every video title and thumbnail for clicks</p><p class="way-desc">70% of YouTube views come from the thumbnail. Invest time in compelling visuals and curiosity-driven titles.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">150</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Batch record 4 weeks of content in one session</p><p class="way-desc">Batch recording eliminates daily decision fatigue. One focused 4-hour session produces a month of promotional content.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 7: PAID & AFFILIATES -->
+<section class="cat-sec t7" id="cat7">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">💰 Category 07</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count7">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Paid & Affiliates</h2>
+      <p class="cat-desc">When organic isn't enough, paid amplification and affiliate networks multiply your reach. These 25 strategies show you where to invest.</p>
+    </div>
+    <div class="ways" id="ways7">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">151</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Set up a simple affiliate program for your product</p><p class="way-desc">Let others sell for you. Even a 30% commission means you're paying for sales that already happened.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">152</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run a Facebook ad to a warm custom audience</p><p class="way-desc">Upload your email list as a custom audience. Ads to warm leads convert at 3–5x cold traffic rates.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">153</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Test a $5/day Instagram ad to your best-performing post</p><p class="way-desc">Boost your highest-converting organic post. Small spend. Low risk. Real data on what converts.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">154</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a lookalike audience from your buyer list</p><p class="way-desc">Facebook finds people who look like your existing buyers. Often the highest-converting cold audience available.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">155</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run retargeting ads to people who visited your sales page</p><p class="way-desc">People who visited but didn't buy are your warmest leads. Retargeting them costs a fraction of cold ads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">156</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Recruit 10 affiliates this month</p><p class="way-desc">10 affiliates each making one sale per week = 40 extra sales monthly with zero additional effort from you.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">157</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Give affiliates a ready-made promo kit</p><p class="way-desc">Provide graphics, email copy, and social captions. The easier you make it, the more affiliates actually promote.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">158</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Test a Pinterest ad campaign</p><p class="way-desc">Pinterest ads reach buyers in research mode. Lower CPM than Facebook, longer content lifespan.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">159</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run a Google Shopping or search ad for your product</p><p class="way-desc">Google ads capture buyers searching for exactly what you sell. High intent = higher conversion than social ads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">160</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Sponsor a niche newsletter</p><p class="way-desc">Newsletter audiences are pre-qualified and trust the curator. One sponsored mention often outperforms a full ad campaign.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">161</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Pay a micro-influencer to review your product</p><p class="way-desc">Micro-influencers (5K–50K) have higher engagement rates than large accounts. A genuine review often costs under $200.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">162</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Set up affiliate tracking with a platform like ThriveCart</p><p class="way-desc">Accurate tracking means affiliates trust you. Trust means they promote harder. Invest in proper infrastructure early.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">163</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run an affiliate contest during launch week</p><p class="way-desc">Top affiliate wins a bonus. Leaderboard competition drives extra promotion effort without extra cost to you.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">164</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use Spark Ads to amplify creator content about your product</p><p class="way-desc">TikTok Spark Ads let you boost organic creator content as an ad. Authenticity + paid reach = strong conversion.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">165</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Set up a YouTube pre-roll ad</p><p class="way-desc">YouTube ads target by interest and search behavior. A 15-second non-skippable ad delivers your message to a relevant audience.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">166</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a tiered affiliate commission structure</p><p class="way-desc">Reward top affiliates with higher commissions. A tiered structure motivates consistent high-volume promotion.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">167</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run a contest with your product as the prize</p><p class="way-desc">Giveaway contests generate shares, follows, and email opt-ins. The prize exposure introduces your product to thousands.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">168</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use LinkedIn ads for B2B digital products</p><p class="way-desc">LinkedIn's professional targeting is unmatched for B2B offers. Higher cost per click, but significantly higher purchase intent.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">169</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Test a carousel ad format for your product</p><p class="way-desc">Carousel ads let you show multiple product features or testimonials. More engagement than single-image ads.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">170</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Get listed on affiliate networks</p><p class="way-desc">Platforms like ShareASale, Impact, or niche-specific networks give your affiliate program visibility to active promoters.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">171</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run a flash ad campaign during a launch window</p><p class="way-desc">Concentrate your ad spend in a short window during your launch. High frequency + urgency = concentrated conversion.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">172</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Use ads to drive email opt-ins, not direct sales</p><p class="way-desc">Warm them first. A subscriber who receives your sequence is 5x more likely to buy than cold ad traffic.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">173</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a product demo ad video</p><p class="way-desc">A 30–60 second walkthrough of your product as a paid ad. Show the interface, the value, and the transformation.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">174</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Run a seasonal discount ad campaign</p><p class="way-desc">Black Friday, New Year, Back to School — seasonal context gives your ad a built-in urgency hook.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">175</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Track your cost per lead and cost per sale from day one</p><p class="way-desc">You can't scale what you don't measure. Even basic tracking tells you where to spend more and where to cut.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAT 8: QUICK WINS -->
+<section class="cat-sec t8" id="cat8">
+  <div class="wrap">
+    <div class="cat-header">
+      <div class="cat-tag-row">
+        <div class="cat-tag">⚡ Category 08</div>
+        <span class="cat-count-badge"><span class="checked-count" id="count8">0</span> / 25 checked</span>
+      </div>
+      <h2 class="cat-h">Quick Wins</h2>
+      <p class="cat-desc">25 things you can do today — right now — to get more eyes on your product without any setup, strategy, or budget.</p>
+    </div>
+    <div class="ways" id="ways8">
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">176</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Text 5 friends about your product right now</p><p class="way-desc">Your warm network is your most underused asset. A personal text from you converts better than any ad.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">177</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Update every social media bio to mention your product</p><p class="way-desc">Takes 5 minutes. Every profile visitor now sees your product. Free passive promotion on every platform.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">178</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post about your product in 3 relevant Facebook groups today</p><p class="way-desc">Find the groups. Read the rules. Post value + product mention. Immediate reach to new audiences.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">179</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Reply to 20 comments and mention your product contextually</p><p class="way-desc">Engage first. Mention your product only when it's directly relevant. Profile visits follow good conversations.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">180</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share your product on your personal Facebook profile</p><p class="way-desc">Your personal network sees your business content. One post to your personal feed can drive surprising sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">181</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Ask 3 happy buyers to share your product today</p><p class="way-desc">A direct personal ask to someone who loved your product takes 2 minutes and can drive immediate sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">182</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">DM 5 people who asked about your topic recently</p><p class="way-desc">Look back at your DMs and comments. People who asked questions are warm leads. Follow up with your product.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">183</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Add your product to your Beacons / Stan Store today</p><p class="way-desc">If it's not in your storefront it can't be found. List every product. Every time. No exceptions.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">184</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send your product link to your email list right now</p><p class="way-desc">Don't overthink it. A quick email saying "in case you missed it, here's [product]" drives real sales.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">185</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Share your product in your WhatsApp status</p><p class="way-desc">Your WhatsApp status reaches your most personal contacts. Often overlooked. Consistently underused.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">186</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post in your Skool community about your product today</p><p class="way-desc">Your community members are your warmest leads. They already trust you. They just need the reminder.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">187</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Ask a question related to your product's problem on social</p><p class="way-desc">"Who struggles with [problem]?" Comment replies = warm leads. Follow up each one with your product.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">188</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Cross-post your product to all your platforms today</p><p class="way-desc">One post. Five platforms. Instagram, Threads, TikTok, Facebook, LinkedIn. Maximum reach, minimal extra effort.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">189</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Create a Canva cover image and update your storefront</p><p class="way-desc">A professional cover image increases click-through rate significantly. 30 minutes. Immediate impact.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">190</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Respond to every comment on your recent posts with your link</p><p class="way-desc">Engaged commenters are warm. A relevant reply with your product link catches them at peak interest.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">191</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Post your product on Etsy or Gumroad for extra discovery</p><p class="way-desc">These platforms have their own search and buyers. List your product there for passive discovery without extra promotion.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">192</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Leave your product link as a thoughtful comment</p><p class="way-desc">Find a post where someone is struggling with exactly what your product solves. Help them. Share the link.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">193</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Ask a podcast host if you can be a last-minute guest</p><p class="way-desc">Hosts frequently have last-minute cancellations. Pitch yourself as ready to record this week. High acceptance rate.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">194</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Write a single post about one result your product delivers</p><p class="way-desc">One specific result. One specific person it helps. One link. Post it on your most active platform. Do it today.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">195</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Screenshot a buyer DM and post it as social proof</p><p class="way-desc">With permission, share a real message from a happy buyer. Authentic reactions outperform any written testimonial.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">196</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Add your product link to all your YouTube video descriptions</p><p class="way-desc">Every existing YouTube video is an opportunity. Update descriptions with your product link today. Passive ongoing clicks.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">197</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Apply to one bundle event right now</p><p class="way-desc">Open your browser. Search "[your niche] bundle event 2026." Apply to the first relevant one you find. Takes 15 minutes.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">198</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Lower your price for 24 hours and announce it</p><p class="way-desc">A single-day price drop creates real urgency. Announce it publicly. Set a timer. Watch the sales spike.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">199</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Send a personal voice note to 10 warm leads about your product</p><p class="way-desc">A 30-second voice note in a DM feels more personal than text. Higher open rate, higher conversion rate.</p></div></div>
+      <div class="way" onclick="toggleWay(this)"><div class="way-checkbox"><div class="way-num">200</div><div class="check-icon">✓</div></div><div class="way-body"><p class="way-title">Pick one strategy from this list and do it in the next 10 minutes</p><p class="way-desc">The best promotion strategy is the one you actually execute. Close this guide. Go promote your product. Right now.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="wrap">
+    <h2>200 ways.<br><em>Pick one. Do it now.</em></h2>
+    <p class="closing-sub">You don't need all 200. You need 5 that you do consistently. Start there.</p>
+    <div class="action-grid">
+      <div class="action-card"><p class="action-week">Week 1</p><p class="action-task">Pick 3 social media strategies. Execute all 3 this week.</p></div>
+      <div class="action-card"><p class="action-week">Week 2</p><p class="action-task">Apply to 2 bundles. Send a launch email to your list.</p></div>
+      <div class="action-card"><p class="action-week">Week 3</p><p class="action-task">Set up your affiliate program. Recruit 5 promoters.</p></div>
+      <div class="action-card"><p class="action-week">Week 4</p><p class="action-task">Do 5 quick wins from Category 8. Today. Not tomorrow.</p></div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to top</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="app-footer">
+  <div style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:4px;">Perfectly Apped · A Cha-Cha-Tchotchkes Collection</div>
+  <div style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Original app credit: GetPaidToBeYouOnline</div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  let checked = new Set();
+  let activeFilter = null;
+
+  const catNames = {
+    cat1: '📱 Social Media',
+    cat2: '📧 Email Marketing',
+    cat3: '🤝 Collabs & Bundles',
+    cat4: '🔍 SEO & Content',
+    cat5: '💬 Community',
+    cat6: '🎙️ Audio & Video',
+    cat7: '💰 Paid & Affiliates',
+    cat8: '⚡ Quick Wins'
+  };
+
+  const catRanges = {
+    cat1: [1,25], cat2: [26,50], cat3: [51,75], cat4: [76,100],
+    cat5: [101,125], cat6: [126,150], cat7: [151,175], cat8: [176,200]
+  };
+
+  function getWayId(el) {
+    return el.querySelector('.way-num').textContent.trim();
+  }
+
+  function toggleWay(el) {
+    const id = getWayId(el);
+    if (checked.has(id)) {
+      checked.delete(id);
+      el.classList.remove('checked');
+    } else {
+      checked.add(id);
+      el.classList.add('checked');
+    }
+    updateProgress();
+    updateCatCounts();
+  }
+
+  function updateProgress() {
+    const total = 200;
+    const count = checked.size;
+    const pct = (count / total) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = count + ' of 200 explored';
+    document.getElementById('heroChecked').textContent = count;
+  }
+
+  function updateCatCounts() {
+    for (let i = 1; i <= 8; i++) {
+      const [start, end] = catRanges['cat' + i];
+      let catChecked = 0;
+      for (let n = start; n <= end; n++) {
+        if (checked.has(String(n))) catChecked++;
+      }
+      document.getElementById('count' + i).textContent = catChecked;
+    }
+  }
+
+  function filterCat(catId, navBtn) {
+    if (activeFilter === catId) {
+      clearFilter();
+      return;
+    }
+    activeFilter = catId;
+
+    // Show/hide sections
+    document.querySelectorAll('.cat-sec').forEach(sec => {
+      sec.style.display = sec.id === catId ? '' : 'none';
+    });
+
+    // Nav btn state
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('filter-active'));
+    if (navBtn) navBtn.classList.add('filter-active');
+
+    // Filter banner
+    const banner = document.getElementById('filterBanner');
+    document.getElementById('filterBannerText').textContent = 'Showing: ' + catNames[catId];
+    banner.classList.add('visible');
+
+    // Scroll to section
+    setTimeout(() => {
+      document.getElementById(catId).scrollIntoView({ behavior: 'smooth' });
+    }, 50);
+  }
+
+  function clearFilter() {
+    activeFilter = null;
+    document.querySelectorAll('.cat-sec').forEach(sec => sec.style.display = '');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('filter-active'));
+    document.getElementById('filterBanner').classList.remove('visible');
+  }
+
+  function clearAll() {
+    checked.clear();
+    document.querySelectorAll('.way').forEach(el => el.classList.remove('checked'));
+    updateProgress();
+    updateCatCounts();
+    showToast('Cleared — fresh start!');
+  }
+
+  function downloadChecked() {
+    if (checked.size === 0) {
+      showToast('Check some strategies first!');
+      return;
+    }
+    const ways = document.querySelectorAll('.way.checked');
+    let text = '200 Ways to Promote Your Digital Product\n';
+    text += 'Perfectly Apped · A Cha-Cha-Tchotchkes Collection\n';
+    text += '─'.repeat(50) + '\n';
+    text += 'MY STRATEGY LIST (' + checked.size + ' strategies)\n';
+    text += '─'.repeat(50) + '\n\n';
+
+    let lastCat = '';
+    const catOrder = ['cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8'];
+    catOrder.forEach(catId => {
+      const [start, end] = catRanges[catId];
+      const catWays = [];
+      document.querySelectorAll('#' + catId + ' .way.checked').forEach(w => {
+        const num = w.querySelector('.way-num').textContent;
+        const title = w.querySelector('.way-title').textContent;
+        const desc = w.querySelector('.way-desc').textContent;
+        catWays.push({ num, title, desc });
+      });
+      if (catWays.length > 0) {
+        text += catNames[catId] + '\n';
+        text += '─'.repeat(30) + '\n';
+        catWays.forEach(w => {
+          text += `#${w.num}  ${w.title}\n`;
+          text += `       ${w.desc}\n\n`;
+        });
+      }
+    });
+
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'my-promotion-strategy-list.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Downloaded ' + checked.size + ' strategies!');
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Active nav highlight on scroll (when no filter active)
+  const sections = document.querySelectorAll('.cat-sec');
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const observer = new IntersectionObserver((entries) => {
+    if (activeFilter) return;
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navBtns.forEach((btn, i) => {
+          btn.classList.toggle('active', 'cat' + (i+1) === id);
+        });
+      }
+    });
+  }, { rootMargin: '-50% 0px -49% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

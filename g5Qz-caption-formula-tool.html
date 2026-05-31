@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caption Formula Tool · Perfectly Apped</title>
+<!-- font replaced by Perfectly Apped -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- font replaced by Perfectly Apped -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0 }
+body { min-height: 100vh }
+.wrap { max-width: 780px; margin: 0 auto }
+header { text-align: center; margin-bottom: 32px }
+h1 { margin-bottom: 12px }
+.sub { max-width: 540px; margin: 0 auto }
+.card { padding: 24px; margin-bottom: 24px }
+label { display: block; margin-bottom: 8px }
+input, select, textarea { width: 100%; padding: 12px 14px; margin-bottom: 18px }
+textarea { resize: vertical; min-height: 90px }
+button { padding: 14px 28px; cursor: pointer; width: 100% }
+button.ghost { margin-top: 10px }
+.formula-name { margin-bottom: 4px }
+.formula-desc { margin-bottom: 16px }
+.caption-box { padding: 18px 20px; white-space: pre-wrap; margin-bottom: 14px }
+.actions { display: flex; gap: 10px; flex-wrap: wrap }
+.actions button { flex: 1; min-width: 130px; width: auto }
+.hidden { display: none }
+footer { text-align: center; margin-top: 40px; padding-top: 20px }
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="ay-brand">
+/* ── APPSOLUTELY YOU BRAND ── */
+:root {
+  --bg: #2E7D73;
+  --panel: #FFF2E1;
+  --header: #F27C38;
+  --mustard: #F4C542;
+  --green: #A6D76A;
+  --pink: #FF69B4;
+  --dark: #1A1A1A;
+  --muted: #7A7A6A;
+  --yes: #44cc66;
+  --no: #e07070;
+}
+body { background: var(--bg); color: #2A2A1A; font-family: 'DM Sans', sans-serif; line-height: 1.6; padding: 24px 16px 40px; margin: 0; }
+.container, .wrap { padding-left: 0; padding-right: 0; }
+h1, h2, h3, h4 { font-family: 'Fredoka One', cursive; font-weight: 400; }
+h1 { color: var(--dark); font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.2; }
+h2, h3 { color: var(--dark); }
+.app-header, header.branded {
+  background: var(--header);
+  border-radius: 18px;
+  padding: 28px 24px 24px;
+  margin: 0 auto 24px;
+  max-width: 820px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+  border: 3px solid rgba(255,255,255,0.25);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.app-header h1, header.branded h1 {
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.app-header p, header.branded p, .app-header .subtitle, header.branded .subtitle, .app-header .sub, header.branded .sub {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.97rem;
+  position: relative; z-index: 1;
+  max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  opacity: 1;
+}
+.app-header::before, header.branded::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(244,197,66,0.25);
+  border-radius: 50%;
+}
+.app-header::after, header.branded::after {
+  content: '';
+  position: absolute; bottom: -20px; left: -20px;
+  width: 80px; height: 80px;
+  background: rgba(255,105,180,0.2);
+  border-radius: 50%;
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card {
+  background: var(--panel);
+  border: 3px solid var(--green);
+  border-radius: 14px;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card { color: #2A2A1A; }
+.card-title, .section-title, .card h2, .card h3, .section h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: #2A2A1A;
+  font-size: 1.05rem;
+}
+.stat-n, .stat-val, .stat-value, .stat-num { color: var(--mustard); font-family: 'Fredoka One', cursive; font-weight: 400; }
+label, .field-label, .label {
+  color: #2A2A1A;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  opacity: 1;
+}
+input, select, textarea {
+  background: #ffffff;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.93rem;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,105,180,0.15);
+}
+input::placeholder, textarea::placeholder { color: #bbb; }
+select option { background: #fff; color: var(--dark); }
+button, .btn, .btn-gold, .btn-add, .btn-submit, .btn-generate, .add-btn, .dl-btn, .generate-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  padding: 12px 24px;
+}
+button:hover, .btn:hover, .btn-gold:hover, .btn-add:hover, .btn-submit:hover, .add-btn:hover, .dl-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+  transform: translateY(-2px);
+}
+.btn-outline, button.outline, button.secondary, .copy-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+}
+.btn-outline:hover, button.outline:hover, .copy-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+}
+.btn-add, .add-btn { padding: 10px 18px; font-size: 0.95rem; }
+.btn-ghost, .btn-complete, .btn-icon, .del-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: color 0.15s, background 0.15s;
+}
+.btn-ghost:hover, .del-btn:hover { color: var(--no); background: rgba(224,112,112,0.1); transform: none; }
+.btn-complete:hover { color: var(--yes); background: rgba(68,204,102,0.1); transform: none; }
+.btn-checkin {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+}
+.btn-checkin:hover { background: var(--mustard); color: var(--dark); transform: none; }
+.opt, .tab-btn, .format-btn {
+  background: transparent;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s;
+}
+.opt.sel, .opt.active, .tab-btn.active, .format-btn.active, .format-btn.sel {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+}
+.cc { border-radius: 14px; overflow: hidden; border: 3px solid var(--green); box-shadow: 0 5px 0 rgba(0,0,0,0.1); }
+.cc-top { background: var(--panel); color: var(--dark); }
+.cc-title { font-family: 'Fredoka One', cursive; font-weight: 400; color: var(--dark); }
+.cc-desc, .cc-meta { color: var(--muted); }
+.cc-footer { background: var(--panel); border-top: 1px solid rgba(166,215,106,0.4); }
+.cc-prog-bar { background: rgba(0,0,0,0.08); }
+.ci-form { background: #fff8ef; border-top: 2px solid var(--green); }
+.last-commit-note { background: var(--bg); color: rgba(255,255,255,0.88); border-left: 3px solid var(--mustard); border-radius: 0 8px 8px 0; }
+.kchip { background: #fff; color: var(--dark); border: 2px solid var(--green); border-radius: 8px; font-weight: 600; cursor: pointer; }
+.kchip.sel-yes     { border-color: var(--yes);    color: var(--yes);    background: rgba(68,204,102,0.08); }
+.kchip.sel-partial { border-color: var(--mustard);color: var(--mustard);background: rgba(244,197,66,0.08); }
+.kchip.sel-no      { border-color: var(--no);     color: var(--no);     background: rgba(224,112,112,0.08); }
+.pchip { background: #fff; color: var(--muted); border: 2px solid var(--green); border-radius: 7px; font-weight: 600; cursor: pointer; }
+.pchip.sel { border-color: var(--pink); color: var(--pink); background: rgba(255,105,180,0.08); }
+.hist-item { border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.hist-title { color: var(--dark); font-weight: 500; }
+.hist-meta { color: var(--muted); }
+.empty { color: var(--muted); }
+.date-label { color: rgba(255,255,255,0.5); }
+.btn-done-today { color: var(--yes); font-weight: 700; font-size: 0.78rem; }
+.err { color: var(--no); }
+.badge, .kept-badge { border-radius: 10px; border: 1px solid; }
+.entry-row, .prog-row { background: var(--panel); border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.prog-bar-track { background: rgba(0,0,0,0.08); }
+.prog-bar-fill { background: var(--mustard); }
+.plan-header { text-align: center; }
+.plan-goal { font-family: 'Fredoka One', cursive; font-weight: 400; font-size: 1.4rem; color: var(--mustard); }
+.plan-sub { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+.month-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2A2A1A; }
+.month-milestone { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1.05rem; color: #2A2A1A; }
+.action-item { color: #2A2A1A; font-size: 0.88rem; font-weight: 400; }
+.action-dot { color: #2A2A1A; }
+.action-num { color: #2A2A1A; font-weight: 400; }
+footer {
+  position: static !important;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  padding: 24px 16px 40px;
+  margin-top: 32px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="branded">
+    <h1>Caption Formula Tool</h1>
+    <p class="sub">Plug in your topic, pick a proven copywriting formula, and get a finished caption that actually converts.</p>
+  </header>
+
+  <div class="card" id="inputCard">
+    <label for="topic">What's your post about?</label>
+    <input id="topic" type="text" placeholder="e.g. why morning routines matter, getting toddlers to eat vegetables, starting a side hustle" />
+
+    <label for="audience">Who you're talking to</label>
+    <input id="audience" type="text" placeholder="e.g. new teachers, home cooks, first-year freelancers, new parents" />
+
+    <label for="benefit">The outcome or transformation (complete the phrase "I can now ___")</label>
+    <textarea id="benefit" placeholder="e.g. feel calm at bedtime, charge what I'm worth, finish a painting I'm proud of, run without stopping"></textarea>
+
+    <label for="cta">Call to action</label>
+    <input id="cta" type="text" placeholder="e.g. Comment PRICE for the link, Save this for later" />
+
+    <label for="formula">Pick a formula</label>
+    <select id="formula">
+      <option value="AIDA">AIDA — Attention, Interest, Desire, Action</option>
+      <option value="PAS">PAS — Problem, Agitate, Solution</option>
+      <option value="BAB">BAB — Before, After, Bridge</option>
+      <option value="HOOK">Hook + Story + Lesson</option>
+      <option value="LIST">Listicle (3-point teaching)</option>
+    </select>
+
+    <button onclick="generate()">Build My Caption</button>
+  </div>
+
+  <div id="output" class="hidden"></div>
+
+  <footer><div style="font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:3px;">Perfectly Apped · A Cha-Cha-Tchotchkes Collection</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Original app credit: GetPaidToBeYouOnline</div></footer>
+</div>
+
+<script>
+  // Section label colors cycling through brand palette
+  const LABEL_COLORS = [
+    { bg: '#F27C38', text: '#fff' },
+    { bg: '#F4C542', text: '#1A1A1A' },
+    { bg: '#FF69B4', text: '#fff' },
+    { bg: '#A6D76A', text: '#1A1A1A' },
+    { bg: '#2E7D73', text: '#fff' }
+  ];
+
+  const FORMULAS = {
+    AIDA: {
+      name: "AIDA",
+      desc: "Attention → Interest → Desire → Action. A classic for sales-driving posts.",
+      sections: ['Attention', 'Interest', 'Desire', 'Action'],
+      build: (t, a, b, c) => [
+        `${a} — this one's for you. 👀`,
+        `Most people assume ${t} has to be complicated. That's what keeps so many ${a} spinning their wheels instead of making real progress.`,
+        `What if it didn't have to be that way? Imagine this: ${b}. That kind of shift is real — and closer than you think.`,
+        c
+      ]
+    },
+    PAS: {
+      name: "PAS",
+      desc: "Problem → Agitate → Solution. Powerful when your audience feels real pain.",
+      sections: ['Problem', 'Agitate', 'Solution', 'Action'],
+      build: (t, a, b, c) => [
+        `If you're a ${a} who's struggling with ${t} — you're not alone, and you're not the problem.`,
+        `But here's the part nobody says out loud: waiting for it to get easier on its own doesn't work. The longer it goes unaddressed, the heavier it gets. And you deserve better than that.`,
+        `There's a different way forward. One where ${b} is the outcome, not the distant dream — and you don't have to figure it all out from scratch to get there.`,
+        c
+      ]
+    },
+    BAB: {
+      name: "BAB",
+      desc: "Before → After → Bridge. Transformation stories sell hard.",
+      sections: ['Before', 'After', 'Bridge', 'Action'],
+      build: (t, a, b, c) => [
+        `Before: I was a ${a} who kept bumping into the same wall with ${t}. I'd try something, it wouldn't stick, and I'd be back at square one.`,
+        `After: things look different now. ${b} — that became possible. And that shift didn't come from trying harder. It came from trying differently.`,
+        `The bridge between those two places? Simpler than I expected. Want to know what it was?`,
+        c
+      ]
+    },
+    HOOK: {
+      name: "Hook + Story + Lesson",
+      desc: "Open with a hook, tell a quick story, end with a teachable takeaway.",
+      sections: ['Hook', 'Story', 'Lesson', 'Action'],
+      build: (t, a, b, c) => [
+        `There was a point where I almost walked away from ${t} entirely.`,
+        `I was doing everything a ${a} is supposed to do — and still felt like I was missing something. Then one small thing changed. The result: ${b}. The relief was real.`,
+        `What I learned: it's rarely about doing more. It's about finding the thing that actually fits where you are right now.`,
+        c
+      ]
+    },
+    LIST: {
+      name: "3-Point Listicle",
+      desc: "Save-worthy structure. Promises value upfront, delivers in 3 punches.",
+      sections: ['Hook', 'Point 1', 'Point 2', 'Point 3', 'Save prompt', 'Action'],
+      build: (t, a, b, c) => [
+        `3 things every ${a} should know about ${t}:`,
+        `1. The barrier is rarely what it looks like. Most people focus on the wrong thing — and then wonder why nothing changes.`,
+        `2. Small and consistent beats big and occasional. Every time. The people seeing results aren't doing more than you. They're doing it differently — and that's what makes ${b} possible.`,
+        `3. You don't need to have it all figured out to start. Progress happens in the middle of the mess, not after it clears.`,
+        `Save this for the next time you need a reset.`,
+        c
+      ]
+    }
+  };
+
+  function generate() {
+    const t = document.getElementById('topic').value.trim();
+    const a = document.getElementById('audience').value.trim();
+    const b = document.getElementById('benefit').value.trim();
+    const c = document.getElementById('cta').value.trim();
+    const key = document.getElementById('formula').value;
+
+    if (!t || !a || !b || !c) {
+      alert('Please fill in all four fields first.');
+      return;
+    }
+
+    const f = FORMULAS[key];
+    const paragraphs = f.build(t, a, b, c);
+
+    const sectionsHTML = paragraphs.map((para, i) => {
+      const lc = LABEL_COLORS[i % LABEL_COLORS.length];
+      const label = f.sections[i] || '';
+      return `<div style="display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start;padding:14px 0;border-bottom:2px dashed rgba(0,0,0,0.07);">
+        <div style="display:inline-block;background:${lc.bg};color:${lc.text};font-size:0.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;text-align:center;line-height:1.3;margin-top:2px;">${label}</div>
+        <div style="font-size:0.96rem;color:#2A2A1A;line-height:1.65;">${para.replace(/</g, '&lt;')}</div>
+      </div>`;
+    }).join('');
+
+    // Full caption as plain text for clipboard
+    const fullCaption = paragraphs.join('\n\n');
+
+    const out = document.getElementById('output');
+    out.innerHTML = `<div class="card" style="padding:0;overflow:hidden;">
+      <div style="background:var(--header);padding:18px 24px 16px;border-radius:11px 11px 0 0;">
+        <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.6rem;letter-spacing:0.5px;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">${f.name}</div>
+        <div style="color:rgba(255,255,255,0.88);font-size:0.9rem;margin-top:4px;">${f.desc}</div>
+      </div>
+      <div style="padding:4px 24px 20px;">
+        ${sectionsHTML}
+        <div class="actions" style="margin-top:16px;">
+          <button onclick="copyCaption()" style="background:var(--pink);color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1.05rem;padding:13px 24px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);transition:background 0.18s,transform 0.15s;flex:1;">Copy Caption</button>
+          <button onclick="reset()" style="background:transparent;color:var(--dark);border:2px solid var(--green);border-radius:10px;font-family:'Fredoka One',cursive;font-size:1.05rem;padding:13px 24px;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.1);transition:background 0.18s,transform 0.15s;flex:1;" onmouseover="this.style.background='#A6D76A';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='transparent';this.style.transform='none'">Try Another</button>
+        </div>
+      </div>
+    </div>`;
+    // Store full caption for clipboard
+    window._captionText = fullCaption;
+    out.classList.remove('hidden');
+    document.getElementById('inputCard').classList.add('hidden');
+    out.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function copyCaption() {
+    navigator.clipboard.writeText(window._captionText || '').then(() => alert('Caption copied to clipboard.'));
+  }
+
+  function reset() {
+    document.getElementById('output').classList.add('hidden');
+    document.getElementById('inputCard').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

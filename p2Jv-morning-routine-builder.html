@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Routine Builder · Perfectly Apped</title>
+<!-- font replaced by Perfectly Apped -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0 }
+body { min-height: 100vh }
+h1 { text-align: center; margin-bottom: 4px }
+.subtitle { text-align: center; margin-bottom: 24px }
+.card { padding: 20px; max-width: 580px; margin: 0 auto 20px }
+.card-title { margin-bottom: 14px }
+.input-row { display: flex; gap: 8px; flex-wrap: wrap }
+.input-row input[type="text"] { flex: 1; min-width: 140px; padding: 10px 14px }
+.input-row input[type="number"] { width: 72px; padding: 10px; text-align: center }
+.btn-gold { padding: 10px 20px; cursor: pointer; white-space: nowrap }
+.btn-gold:disabled { cursor: default }
+.step-item { display: flex; align-items: center; gap: 8px; padding: 11px 0 }
+.step-num { width: 20px; flex-shrink: 0 }
+.step-name { flex: 1 }
+.step-dur { white-space: nowrap }
+.icon-btn { cursor: pointer; padding: 4px 5px }
+.empty { text-align: center; padding: 16px 0 }
+.footer-row { max-width: 580px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center }
+/* Run mode */
+  #runView { display: none; position: fixed; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; z-index: 10 }
+#runView.active { display: flex }
+.run-progress { display: flex; gap: 6px; margin-bottom: 36px }
+.run-dot { width: 8px; height: 8px }
+.run-step-label { margin-bottom: 10px }
+.run-step-name { margin-bottom: 32px; max-width: 480px }
+.run-timer { margin-bottom: 12px }
+.run-bar { width: 260px; height: 5px; margin-bottom: 40px; overflow: hidden }
+.run-fill { height: 100% }
+.run-btns { display: flex; gap: 12px }
+.btn-ghost { padding: 11px 24px; cursor: pointer }
+footer { position: fixed; bottom: 0; left: 0; right: 0; text-align: center; padding: 10px }
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="ay-brand">
+/* ── PERFECTLY APPED BRAND ── */
+:root {
+  --bg: #2E7D73;
+  --panel: #FFF2E1;
+  --header: #F27C38;
+  --mustard: #F4C542;
+  --green: #A6D76A;
+  --pink: #FF69B4;
+  --dark: #1A1A1A;
+  --muted: #7A7A6A;
+  --yes: #44cc66;
+  --no: #e07070;
+}
+body { background: var(--bg); color: #2A2A1A; font-family: 'DM Sans', sans-serif; line-height: 1.6; padding: 24px 16px 40px; margin: 0; }
+.container, .wrap { padding-left: 0; padding-right: 0; }
+h1, h2, h3, h4 { font-family: 'Fredoka One', cursive; font-weight: 400; }
+h1 { color: var(--dark); font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.2; }
+h2, h3 { color: var(--dark); }
+.app-header, header.branded {
+  background: var(--header);
+  border-radius: 18px;
+  padding: 28px 24px 24px;
+  margin: 0 auto 24px;
+  max-width: 820px;
+  box-shadow: 0 6px 0 rgba(0,0,0,0.18);
+  border: 3px solid rgba(255,255,255,0.25);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.app-header h1, header.branded h1 {
+  color: #fff;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  text-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.app-header p, header.branded p, .app-header .subtitle, header.branded .subtitle, .app-header .sub, header.branded .sub {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.97rem;
+  position: relative; z-index: 1;
+  max-width: 520px;
+  margin-left: auto; margin-right: auto;
+  opacity: 1;
+}
+.app-header::before, header.branded::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  background: rgba(244,197,66,0.25);
+  border-radius: 50%;
+}
+.app-header::after, header.branded::after {
+  content: '';
+  position: absolute; bottom: -20px; left: -20px;
+  width: 80px; height: 80px;
+  background: rgba(255,105,180,0.2);
+  border-radius: 50%;
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card {
+  background: var(--panel);
+  border: 3px solid var(--green);
+  border-radius: 14px;
+  box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+}
+.card, .section, .month-card, .stat, .stat-box, .section-card, .name-box, .results-card { color: #2A2A1A; }
+.card-title, .section-title, .card h2, .card h3, .section h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  color: #2A2A1A;
+  font-size: 1.05rem;
+}
+.stat-n, .stat-val, .stat-value, .stat-num { color: var(--mustard); font-family: 'Fredoka One', cursive; font-weight: 400; }
+label, .field-label, .label {
+  color: #2A2A1A;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  opacity: 1;
+}
+input, select, textarea {
+  background: #ffffff;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.93rem;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255,105,180,0.15);
+}
+input::placeholder, textarea::placeholder { color: #bbb; }
+select option { background: #fff; color: var(--dark); }
+button, .btn, .btn-gold, .btn-add, .btn-submit, .btn-generate, .add-btn, .dl-btn, .generate-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.15s;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+  padding: 12px 24px;
+}
+button:hover, .btn:hover, .btn-gold:hover, .btn-add:hover, .btn-submit:hover, .add-btn:hover, .dl-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+  transform: translateY(-2px);
+}
+.btn-outline, button.outline, button.secondary, .copy-btn {
+  background: var(--pink);
+  color: #ffffff;
+  border: none;
+}
+.btn-outline:hover, button.outline:hover, .copy-btn:hover {
+  background: var(--mustard);
+  color: var(--dark);
+}
+.btn-add, .add-btn { padding: 10px 18px; font-size: 0.95rem; }
+.btn-ghost, .btn-complete, .btn-icon, .del-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 6px;
+  border-radius: 6px;
+  box-shadow: none;
+  transition: color 0.15s, background 0.15s;
+}
+.btn-ghost:hover, .del-btn:hover { color: var(--no); background: rgba(224,112,112,0.1); transform: none; }
+.btn-complete:hover { color: var(--yes); background: rgba(68,204,102,0.1); transform: none; }
+.btn-checkin {
+  background: var(--pink);
+  color: #fff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-family: 'Fredoka One', cursive;
+  font-weight: 400;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+}
+.btn-checkin:hover { background: var(--mustard); color: var(--dark); transform: none; }
+.opt, .tab-btn, .format-btn {
+  background: transparent;
+  color: var(--dark);
+  border: 2px solid var(--green);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s;
+}
+.opt.sel, .opt.active, .tab-btn.active, .format-btn.active, .format-btn.sel {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+}
+.cc { border-radius: 14px; overflow: hidden; border: 3px solid var(--green); box-shadow: 0 5px 0 rgba(0,0,0,0.1); }
+.cc-top { background: var(--panel); color: var(--dark); }
+.cc-title { font-family: 'Fredoka One', cursive; font-weight: 400; color: var(--dark); }
+.cc-desc, .cc-meta { color: var(--muted); }
+.cc-footer { background: var(--panel); border-top: 1px solid rgba(166,215,106,0.4); }
+.cc-prog-bar { background: rgba(0,0,0,0.08); }
+.ci-form { background: #fff8ef; border-top: 2px solid var(--green); }
+.last-commit-note { background: var(--bg); color: rgba(255,255,255,0.88); border-left: 3px solid var(--mustard); border-radius: 0 8px 8px 0; }
+.kchip { background: #fff; color: var(--dark); border: 2px solid var(--green); border-radius: 8px; font-weight: 600; cursor: pointer; }
+.kchip.sel-yes     { border-color: var(--yes);    color: var(--yes);    background: rgba(68,204,102,0.08); }
+.kchip.sel-partial { border-color: var(--mustard);color: var(--mustard);background: rgba(244,197,66,0.08); }
+.kchip.sel-no      { border-color: var(--no);     color: var(--no);     background: rgba(224,112,112,0.08); }
+.pchip { background: #fff; color: var(--muted); border: 2px solid var(--green); border-radius: 7px; font-weight: 600; cursor: pointer; }
+.pchip.sel { border-color: var(--pink); color: var(--pink); background: rgba(255,105,180,0.08); }
+.hist-item { border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.hist-title { color: var(--dark); font-weight: 500; }
+.hist-meta { color: var(--muted); }
+.empty { color: var(--muted); }
+.date-label { color: rgba(255,255,255,0.5); }
+.btn-done-today { color: var(--yes); font-weight: 700; font-size: 0.78rem; }
+.err { color: var(--no); }
+.badge, .kept-badge { border-radius: 10px; border: 1px solid; }
+.entry-row, .prog-row { background: var(--panel); border-bottom: 1px solid rgba(166,215,106,0.3); color: var(--dark); }
+.prog-bar-track { background: rgba(0,0,0,0.08); }
+.prog-bar-fill { background: var(--mustard); }
+.plan-header { text-align: center; }
+.plan-goal { font-family: 'Fredoka One', cursive; font-weight: 400; font-size: 1.4rem; color: var(--mustard); }
+.plan-sub { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+.month-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2A2A1A; }
+.month-milestone { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1.05rem; color: #2A2A1A; }
+.action-item { color: #2A2A1A; font-size: 0.88rem; font-weight: 400; }
+.action-dot { color: #2A2A1A; }
+.action-num { color: #2A2A1A; font-weight: 400; }
+footer {
+  position: static !important;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  background: transparent;
+  padding: 24px 16px 40px;
+  margin-top: 32px;
+}
+
+/* Secondary button */
+.btn-secondary {
+  background: transparent !important;
+  color: #1A1A1A !important;
+  border: 2px solid #A6D76A !important;
+  border-radius: 10px !important;
+  font-family: 'Fredoka One', cursive !important;
+  font-size: 1rem !important;
+  padding: 11px 22px !important;
+  cursor: pointer !important;
+  transition: background 0.18s, color 0.18s, transform 0.15s !important;
+  box-shadow: none !important;
+}
+.btn-secondary:hover {
+  background: #A6D76A !important;
+  color: #1A1A1A !important;
+  transform: translateY(-2px) !important;
+}
+</style>
+</head>
+<body>
+
+<!-- Build view -->
+<div id="buildView">
+  <header class="app-header"><h1>Morning Routine Builder</h1>
+  <p class="subtitle">Design your ideal morning, step by step. Then run it on autopilot.</p></header>
+
+  <div class="card">
+    <div class="card-title">Add a Step</div>
+    <div class="input-row">
+      <input type="text" id="stepName" placeholder="e.g. Meditate, Journal, Stretch…" maxlength="60" />
+      <input type="number" id="stepMins" value="5" min="1" max="120" title="Minutes" />
+      <button class="btn-gold" onclick="addStep()">Add</button>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden;">
+    <div style="background:#F27C38;border-radius:11px 11px 0 0;padding:14px 20px;">
+      <div style="font-family:'Fredoka One',cursive;color:#fff;font-size:1.6rem;text-shadow:1px 2px 0 rgba(0,0,0,0.15);">Your Routine</div>
+      <div style="color:rgba(255,255,255,0.88);font-size:0.9rem;margin-top:2px;">Add steps above — drag to reorder, hit Start when ready</div>
+    </div>
+    <div style="padding:8px 16px 16px;">
+      <div id="stepList"><p class="empty">No steps yet — add one above.</p></div>
+    </div>
+  </div>
+
+  <div class="footer-row" style="max-width:580px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+    <div class="total-time" id="totalTime"></div>
+    <button style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:12px 26px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.15);" id="startBtn" onclick="startRun()" disabled>Start Routine ▶</button>
+  </div>
+</div>
+
+<!-- Run view -->
+<div id="runView" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#2E7D73;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;z-index:10;">
+  <div id="runDots" style="display:flex;gap:8px;margin-bottom:28px;"></div>
+  <div id="runLabel" style="font-size:0.8rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:10px;"></div>
+  <div id="runName" style="font-family:'Fredoka One',cursive;font-size:clamp(1.6rem,5vw,2.4rem);color:#fff;text-shadow:1px 2px 0 rgba(0,0,0,0.15);margin-bottom:24px;max-width:480px;line-height:1.3;"></div>
+  <div id="runTimer" style="font-family:'Fredoka One',cursive;font-size:clamp(3rem,12vw,5rem);color:#F4C542;text-shadow:2px 3px 0 rgba(0,0,0,0.2);margin-bottom:10px;"></div>
+  <div style="width:260px;height:8px;background:rgba(255,255,255,0.2);border-radius:4px;margin-bottom:36px;overflow:hidden;">
+    <div id="runFill" style="height:100%;background:#FF69B4;border-radius:4px;transition:width 0.5s;"></div>
+  </div>
+  <div style="display:flex;gap:12px;">
+    <button onclick="endRun()" style="background:transparent;color:rgba(255,255,255,0.85);border:2px solid rgba(255,255,255,0.4);border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 22px;cursor:pointer;"
+      onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">End</button>
+    <button id="nextBtn" onclick="nextStep()" style="background:#FF69B4;color:#fff;border:none;border-radius:10px;font-family:'Fredoka One',cursive;font-size:1rem;padding:11px 26px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,0.2);"
+      onmouseover="this.style.background='#F4C542';this.style.color='#1A1A1A';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#FF69B4';this.style.color='#fff';this.style.transform='none'">Next Step →</button>
+  </div>
+</div>
+
+<footer><div style="font-weight:700;color:rgba(255,255,255,0.9);margin-bottom:3px;">Perfectly Apped · A Cha-Cha-Tchotchkes Collection</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.45);">Original app credit: GetPaidToBeYouOnline</div></footer>
+
+<script>
+  let steps = JSON.parse(localStorage.getItem('mrb_steps') || '[]');
+  let runIdx = 0, runRemaining = 0, runTotal = 0, runTicker = null;
+
+  function save() { localStorage.setItem('mrb_steps', JSON.stringify(steps)); }
+
+  function addStep() {
+    const name = document.getElementById('stepName').value.trim();
+    const mins = parseInt(document.getElementById('stepMins').value) || 1;
+    if (!name) return;
+    steps.push({ id: Date.now(), name, mins });
+    save(); render();
+    document.getElementById('stepName').value = '';
+    document.getElementById('stepName').focus();
+  }
+
+  function move(id, dir) {
+    const i = steps.findIndex(s => s.id === id);
+    const j = i + dir;
+    if (j < 0 || j >= steps.length) return;
+    [steps[i], steps[j]] = [steps[j], steps[i]];
+    save(); render();
+  }
+
+  function remove(id) { steps = steps.filter(s => s.id !== id); save(); render(); }
+
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function fmtMins(m) { return m === 1 ? '1 min' : `${m} mins`; }
+
+  const STEP_COLORS=[
+    {bg:'#F27C38',color:'#fff'},
+    {bg:'#F4C542',color:'#1A1A1A'},
+    {bg:'#FF69B4',color:'#fff'},
+    {bg:'#A6D76A',color:'#1A1A1A'},
+    {bg:'#2E7D73',color:'#fff'}
+  ];
+
+  function render() {
+    const list = document.getElementById('stepList');
+    const total = steps.reduce((s, x) => s + x.mins, 0);
+    document.getElementById('startBtn').disabled = steps.length === 0;
+    document.getElementById('totalTime').innerHTML = steps.length
+      ? `<span style="display:inline-block;background:#F4C542;color:#1A1A1A;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 14px;border-radius:20px;">Total: ${fmtMins(total)}</span>` : '';
+
+    if (!steps.length) { list.innerHTML = '<p class="empty">No steps yet — add one above.</p>'; return; }
+    list.innerHTML = steps.map((s, i) => {
+      const b = STEP_COLORS[i % STEP_COLORS.length];
+      const rowBg = i % 2 === 0 ? '#ffffff' : '#fffaf3';
+      return `
+      <div class="step-item" style="background:${rowBg};border-radius:8px;padding:10px 12px;border-bottom:2px dashed rgba(0,0,0,0.07);display:flex;align-items:center;gap:10px;">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:${b.bg};color:${b.color};font-family:'Fredoka One',cursive;font-size:0.9rem;flex-shrink:0;">${i + 1}</span>
+        <span class="step-name" style="flex:1;color:#2A2A1A;font-size:0.95rem;">${esc(s.name)}</span>
+        <span style="display:inline-block;background:#FFF2E1;border:2px solid #A6D76A;color:#1A1A1A;font-size:0.78rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;">${fmtMins(s.mins)}</span>
+        <button style="background:none;border:none;color:#7A7A6A;cursor:pointer;font-size:0.9rem;padding:4px;border-radius:6px;" onclick="move(${s.id},-1)" ${i===0?'disabled':''}>↑</button>
+        <button style="background:none;border:none;color:#7A7A6A;cursor:pointer;font-size:0.9rem;padding:4px;border-radius:6px;" onclick="move(${s.id},1)" ${i===steps.length-1?'disabled':''}>↓</button>
+        <button style="background:none;border:none;color:#7A7A6A;cursor:pointer;font-size:0.85rem;padding:4px 6px;border-radius:6px;" onclick="remove(${s.id})">✕</button>
+      </div>`;
+    }).join('');
+  }
+
+  function startRun() {
+    runIdx = 0;
+    document.getElementById('buildView').style.display = 'none';
+    document.getElementById('runView').style.display = 'flex';
+    loadStep();
+  }
+
+  function loadStep() {
+    clearInterval(runTicker);
+    const s = steps[runIdx];
+    runTotal = runRemaining = s.mins * 60;
+
+    document.getElementById('runLabel').textContent = `Step ${runIdx + 1} of ${steps.length}`;
+    document.getElementById('runName').textContent = s.name;
+    document.getElementById('nextBtn').textContent = runIdx < steps.length - 1 ? 'Next Step →' : 'Finish ✓';
+
+    const dots = document.getElementById('runDots');
+    dots.innerHTML = steps.map((_, i) => {
+      const bg = i < runIdx ? '#A6D76A' : i === runIdx ? '#FF69B4' : 'rgba(255,255,255,0.3)';
+      return `<div style="width:10px;height:10px;border-radius:50%;background:${bg};transition:background 0.3s;"></div>`;
+    }).join('');
+
+    updateRunDisplay();
+    runTicker = setInterval(tick, 1000);
+  }
+
+  function tick() {
+    if (runRemaining <= 0) { clearInterval(runTicker); if (runIdx < steps.length - 1) { runIdx++; loadStep(); } else { endRun(true); } return; }
+    runRemaining--;
+    updateRunDisplay();
+  }
+
+  function updateRunDisplay() {
+    const m = Math.floor(runRemaining / 60).toString().padStart(2, '0');
+    const s = (runRemaining % 60).toString().padStart(2, '0');
+    document.getElementById('runTimer').textContent = `${m}:${s}`;
+    document.getElementById('runFill').style.width = `${(runRemaining / runTotal) * 100}%`;
+  }
+
+  function nextStep() {
+    clearInterval(runTicker);
+    if (runIdx < steps.length - 1) { runIdx++; loadStep(); } else { endRun(true); }
+  }
+
+  function endRun(finished) {
+    clearInterval(runTicker);
+    document.getElementById('runView').style.display = 'none';
+    document.getElementById('buildView').style.display = '';
+    if (finished) alert('Great work! Your morning routine is complete.');
+  }
+
+  document.getElementById('stepName').addEventListener('keydown', e => { if (e.key === 'Enter') addStep(); });
+  render();
+</script>
+</body>
+</html>
